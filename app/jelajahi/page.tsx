@@ -25,12 +25,22 @@ interface Product {
 
 // --- CATEGORY HELPERS (harus di atas komponen!) ---
 
-const CATEGORY_MAP: Record<string, string[]> = {
-  "semua-mobil": ["semua-mobil", "semua", "SEMUA"],
-  "sedang-ramai": ["sedang-ramai", "ramai", "RAMAI"],
-  "segera-berakhir": ["segera-berakhir", "segera", "SEGERA"],
-  "dibawah-100-juta": ["dibawah-100-juta", "100juta", "dibawah100", "DIBAWAH100"],
-  "baru-masuk": ["baru-masuk", "baru", "BARU"],
+// Map dari enum value Prisma ke slug untuk UI
+const ENUM_TO_SLUG: Record<string, string> = {
+  "SEMUA": "semua-mobil",
+  "RAMAI": "sedang-ramai",
+  "SEGERA": "segera-berakhir",
+  "DIBAWAH100": "dibawah-100-juta",
+  "BARU": "baru-masuk",
+};
+
+// Map dari slug ke enum value Prisma
+const SLUG_TO_ENUM: Record<string, string> = {
+  "semua-mobil": "SEMUA",
+  "sedang-ramai": "RAMAI",
+  "segera-berakhir": "SEGERA",
+  "dibawah-100-juta": "DIBAWAH100",
+  "baru-masuk": "BARU",
 };
 
 // normalizer: ubah lowercase + hapus karakter aneh
@@ -41,29 +51,25 @@ function normalizeKey(s?: string): string {
 
 // mengubah berbagai bentuk kategori → slug utama
 export function formatKategori(input?: string): string {
-  const norm = normalizeKey(input);
-  for (const [slug, variants] of Object.entries(CATEGORY_MAP)) {
-    if (variants.some(v => normalizeKey(v) === norm)) {
-      return slug;
-    }
+  if (!input) return "semua-mobil";
+  
+  const upper = String(input).toUpperCase();
+  
+  // Jika input sudah enum value Prisma
+  if (ENUM_TO_SLUG[upper]) {
+    return ENUM_TO_SLUG[upper];
   }
+  
+  // Jika input adalah slug, kembalikan
+  if (SLUG_TO_ENUM[String(input).toLowerCase()]) {
+    return String(input).toLowerCase();
+  }
+  
   return "semua-mobil"; // default
 }
 
-// cek apakah kategori produk match kategori filter
-export function isProductInCategory(productKategori?: string | null, targetSlug?: string): boolean {
-  if (!targetSlug) return true;
-  const slug = formatKategori(targetSlug);
-  if (slug === "semua-mobil") return true;
 
-  const variants = CATEGORY_MAP[slug] ?? [];
-  const prodNorm = normalizeKey(productKategori ?? "");
-
-  return variants.some(v => normalizeKey(v) === prodNorm);
-}
-
-
-function ProductCard({ product, onBid }: { product: Product; onBid: (productId: string, bidAmount: number) => void }): JSX.Element {
+function ProductCard({ product, onBid }: { product: Product; onBid: (productId: string, bidAmount: number) => void }) {
   const [bidAmount, setBidAmount] = useState(product.harga_awal + 1000000);
   const [submitting, setSubmitting] = useState(false);
   const [showBidForm, setShowBidForm] = useState(false);
@@ -179,28 +185,88 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
   );
 }
 
-const getProductsByCategory = (category: string) => {
-  const kat = formatKategori(category);
-
-  if (kat === "semua-mobil") return products;
-
-  return products.filter(product => product.kategori === kat);
-};
-
-
-  
 export default function JelajahiPage() {
+  const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    formatKategori(searchParams.get("category") || "semua-mobil")
+  );
+  const [sortBy, setSortBy] = useState<string>('terbaru');
+  
+  // Search & Filter states
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [filterMerk, setFilterMerk] = useState<string>('');
+  const [filterHarga, setFilterHarga] = useState<string>('');
 
-  const searchParams = useSearchParams();
-  const initialCategory = formatKategori(searchParams.get("category") || "semua-mobil");
+  const getFilteredProducts = (category: string) => {
+    // Convert slug to enum value if needed
+    const enumValue = SLUG_TO_ENUM[category.toLowerCase()];
+    
+    let filtered = products;
+    
+    // Filter by category
+    if (category !== "semua-mobil" && enumValue) {
+      filtered = filtered.filter(product => product.kategori === enumValue);
+    }
+    
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(product => 
+        product.nama_barang.toLowerCase().includes(query) ||
+        product.merk_mobil?.toLowerCase().includes(query) ||
+        product.tipe_mobil?.toLowerCase().includes(query) ||
+        product.deskripsi.toLowerCase().includes(query)
+      );
+    }
+    
+    // Filter by merk
+    if (filterMerk && filterMerk !== '') {
+      filtered = filtered.filter(product => 
+        product.merk_mobil?.toLowerCase() === filterMerk.toLowerCase()
+      );
+    }
+    
+    // Filter by harga
+    if (filterHarga && filterHarga !== '') {
+      filtered = filtered.filter(product => {
+        switch(filterHarga) {
+          case 'dibawah100':
+            return product.harga_awal < 100000000;
+          case '100-200':
+            return product.harga_awal >= 100000000 && product.harga_awal < 200000000;
+          case '200-300':
+            return product.harga_awal >= 200000000 && product.harga_awal < 300000000;
+          case 'diatas300':
+            return product.harga_awal >= 300000000;
+          default:
+            return true;
+        }
+      });
+    }
+    
+    // Sort
+    if (sortBy === 'terbaru') {
+      filtered.sort((a, b) => new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime());
+    } else if (sortBy === 'termurah') {
+      filtered.sort((a, b) => a.harga_awal - b.harga_awal);
+    } else if (sortBy === 'termahal') {
+      filtered.sort((a, b) => b.harga_awal - a.harga_awal);
+    }
+    
+    return filtered;
+  };
 
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  // Get unique merk from products
+  const getMerks = () => {
+    const merks = new Set(products.map(p => p.merk_mobil).filter(Boolean));
+    return Array.from(merks).sort();
+  };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const getProductsByCategory = (category: string) => {
+    return getFilteredProducts(category);
+  };
 
   const fetchProducts = async () => {
     try {
@@ -219,6 +285,7 @@ export default function JelajahiPage() {
     fetchProducts();
 
     // scroll otomatis ke kategori jika ada query param
+    const initialCategory = formatKategori(searchParams.get("category") || "semua-mobil");
     if (initialCategory) {
       setTimeout(() => {
         const el = document.getElementById(initialCategory);
@@ -228,14 +295,6 @@ export default function JelajahiPage() {
       }, 600);
     }
   }, []);
-
-const getProductsByCategory = (category: string) => {
-  const kat = formatKategori(category);
-
-  if (kat === "semua-mobil") return products;
-
-  return products.filter(product => product.kategori === kat);
-};
 
   const submitBid = async (productId: string, bidAmount: number) => {
     try {
@@ -305,30 +364,46 @@ const getProductsByCategory = (category: string) => {
                   <input
                     type="text"
                     placeholder="Cari mobil..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 bg-white/90 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 placeholder-gray-500"
                   />
                 </div>
 
-                <select className="px-4 py-3 bg-white/90 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                  <option>Semua Merk</option>
-                  <option>Toyota</option>
-                  <option>Honda</option>
-                  <option>Suzuki</option>
-                  <option>Daihatsu</option>
+                <select 
+                  value={filterMerk} 
+                  onChange={(e) => setFilterMerk(e.target.value)}
+                  className="px-4 py-3 bg-white/90 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                >
+                  <option value="">Semua Merk</option>
+                  {getMerks().map((merk) => (
+                    <option key={merk} value={merk}>
+                      {merk}
+                    </option>
+                  ))}
                 </select>
 
-                <select className="px-4 py-3 bg-white/90 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                  <option>Semua Harga</option>
-                  <option>Dibawah 100jt</option>
-                  <option>100jt - 200jt</option>
-                  <option>200jt - 300jt</option>
-                  <option>Diatas 300jt</option>
+                <select 
+                  value={filterHarga} 
+                  onChange={(e) => setFilterHarga(e.target.value)}
+                  className="px-4 py-3 bg-white/90 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                >
+                  <option value="">Semua Harga</option>
+                  <option value="dibawah100">Dibawah 100jt</option>
+                  <option value="100-200">100jt - 200jt</option>
+                  <option value="200-300">200jt - 300jt</option>
+                  <option value="diatas300">Diatas 300jt</option>
                 </select>
 
-                <button className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
-                  <Filter className="w-5 h-5 inline mr-2" />
-                  Filter
-                </button>
+                <select 
+                  value={sortBy} 
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-4 py-3 bg-white/90 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                >
+                  <option value="terbaru">Terbaru</option>
+                  <option value="termurah">Termurah</option>
+                  <option value="termahal">Termahal</option>
+                </select>
               </div>
             </div>
           </div>

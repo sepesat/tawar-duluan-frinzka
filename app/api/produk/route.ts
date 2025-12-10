@@ -42,8 +42,30 @@ export async function POST(req: Request) {
     const kilometer_str = formData.get("kilometer") as string | null;
     const kilometer = kilometer_str ? parseInt(kilometer_str) : null;
 
+    console.log("Received form data:", {
+      nama_barang,
+      tanggal,
+      harga_awal,
+      harga_awal_str,
+      deskripsi,
+      kategori,
+      merk_mobil,
+      tipe_mobil,
+      transmisi,
+      jumlah_seat,
+      tahun,
+      kilometer,
+      hasImage: !!image,
+    });
+
     if (!nama_barang || !tanggal || isNaN(harga_awal) || !deskripsi) {
-      return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
+      console.error("Validation failed:", {
+        nama_barang: !nama_barang,
+        tanggal: !tanggal,
+        harga_awal: isNaN(harga_awal),
+        deskripsi: !deskripsi,
+      });
+      return NextResponse.json({ error: "Invalid form data: missing required fields" }, { status: 400 });
     }
 
     const dateObj = new Date(tanggal);
@@ -72,19 +94,21 @@ export async function POST(req: Request) {
         harga_awal,
         deskripsi,
         image_url: image_url || null,
-        kategori: kategori || null,
-        merk_mobil: merk_mobil || null,
-        tipe_mobil: tipe_mobil || null,
-        transmisi: transmisi || null,
+        kategori: kategori && kategori.trim() ? kategori : null,
+        merk_mobil: merk_mobil && merk_mobil.trim() ? merk_mobil : null,
+        tipe_mobil: tipe_mobil && tipe_mobil.trim() ? tipe_mobil : null,
+        transmisi: transmisi && transmisi.trim() ? transmisi : null,
         jumlah_seat: jumlah_seat || null,
         tahun: tahun || null,
         kilometer: kilometer || null,
       },
     });
 
+    console.log("Produk created successfully:", produk.id);
     return NextResponse.json(produk);
   } catch (err: any) {
     console.error("POST /api/produk error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    const message = err.message || "Unknown error occurred";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

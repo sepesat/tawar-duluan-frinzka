@@ -135,31 +135,31 @@ export default function ProdukPage() {
       formData.append("tanggal", form.tanggal);
       formData.append("harga_awal", form.harga_awal.toString());
       formData.append("deskripsi", form.deskripsi);
-      if (typeof form.kategori === "string") {
+      if (form.kategori && form.kategori.trim()) {
         formData.append("kategori", form.kategori);
       }
 
-      if (typeof form.merk_mobil === "string") {
+      if (form.merk_mobil && form.merk_mobil.trim()) {
         formData.append("merk_mobil", form.merk_mobil);
       }
 
-      if (typeof form.tipe_mobil === "string") {
+      if (form.tipe_mobil && form.tipe_mobil.trim()) {
         formData.append("tipe_mobil", form.tipe_mobil);
       }
 
-      if (typeof form.transmisi === "string") {
+      if (form.transmisi && form.transmisi.trim()) {
         formData.append("transmisi", form.transmisi);
       }
 
-      if (typeof form.jumlah_seat === "number") {
+      if (typeof form.jumlah_seat === "number" && form.jumlah_seat > 0) {
         formData.append("jumlah_seat", form.jumlah_seat.toString());
       }
 
-      if (typeof form.tahun === "number") {
+      if (typeof form.tahun === "number" && form.tahun > 0) {
         formData.append("tahun", form.tahun.toString());
       }
 
-      if (typeof form.kilometer === "number") {
+      if (typeof form.kilometer === "number" && form.kilometer >= 0) {
         formData.append("kilometer", form.kilometer.toString());
       }
       if (selectedFile) {
@@ -178,7 +178,13 @@ export default function ProdukPage() {
           body: formData,
         });
       }
-      if (!res.ok) throw new Error(res.statusText);
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        const errorMessage = errorData.error || res.statusText || "Gagal menyimpan produk";
+        throw new Error(errorMessage);
+      }
+      
       setForm({
         nama_barang: "",
         tanggal: "",
@@ -199,9 +205,12 @@ export default function ProdukPage() {
       setModalOpen(false);
       setErrors({});
       setTouched({});
+      alert("Produk berhasil disimpan!");
       fetchProduk();
     } catch (err) {
+      const message = err instanceof Error ? err.message : "Terjadi kesalahan saat menyimpan produk";
       console.error("Submit error:", err);
+      setErrors({ submit: message });
     } finally {
         setIsSubmitting(false);
     }
@@ -211,10 +220,17 @@ export default function ProdukPage() {
     if (!confirm("Yakin ingin menghapus produk ini?")) return;
     try {
       const res = await fetch(`/api/produk/${id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error(res.statusText);
+      if (!res.ok) {
+        const errorData = await res.json();
+        const errorMessage = errorData.error || res.statusText || "Gagal menghapus produk";
+        throw new Error(errorMessage);
+      }
+      alert("Produk berhasil dihapus!");
       fetchProduk();
     } catch (err) {
+      const message = err instanceof Error ? err.message : "Terjadi kesalahan saat menghapus produk";
       console.error("Delete error:", err);
+      alert(`Gagal menghapus produk: ${message}`);
     }
   }
 
@@ -503,6 +519,17 @@ export default function ProdukPage() {
 
             <div className="flex-1 overflow-y-auto">
               <form onSubmit={handleSubmit} className="p-8 space-y-8">
+                {/* Error Alert */}
+                {errors.submit && (
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-red-900">Gagal menyimpan produk</p>
+                      <p className="text-sm text-red-700 mt-1">{errors.submit}</p>
+                    </div>
+                  </div>
+                )}
+                
                 {/* Product Information Section */}
                 <div className="space-y-6">
 

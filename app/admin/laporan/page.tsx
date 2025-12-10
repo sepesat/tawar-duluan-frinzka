@@ -2,61 +2,105 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
 import {
   BarChart2,
-  ListChecks,
-  Clock,
-  Hourglass,
-  CheckCircle,
-  ChevronRight,
+  TrendingUp,
+  Package,
+  DollarSign,
+  Users,
+  Activity,
+  Calendar,
+  ArrowUpRight,
+  ArrowDownRight,
   Loader2,
 } from "lucide-react";
 
-interface Laporan {
+interface Produk {
   id: string;
-  judul: string;
-  status: "Menunggu" | "Diproses" | "Selesai";
+  nama_barang: string;
+  harga_awal: number;
   tanggal: string;
-  user: string;
+  kategori?: string;
+  createdAt: string;
 }
 
-// Komponen utama (HalamanLaporan)
+interface Bid {
+  id: string;
+  bidAmount: number;
+  createdAt: string;
+}
+
+interface Analytics {
+  totalProduk: number;
+  totalBid: number;
+  totalNilaiAuction: number;
+  averageBidAmount: number;
+  produkBulanIni: number;
+  bidBulanIni: number;
+  kategoriDistribution: Record<string, number>;
+  hargaTertinggi: number;
+  hargaTerendah: number;
+  topProducts: Produk[];
+}
+
+// Komponen utama
 export default function HalamanLaporan() {
-  const [laporan, setLaporan] = useState<Laporan[]>([]);
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
+  const [produkList, setProdukList] = useState<Produk[]>([]);
   const router = useRouter();
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Mock data untuk demonstrasi
-      const mockData: Laporan[] = [
-        {
-          id: "1",
-          judul: "Laporan Kerusakan Jalan",
-          status: "Menunggu",
-          tanggal: "2024-12-01",
-          user: "John Doe"
-        },
-        {
-          id: "2",
-          judul: "Laporan Pencemaran Sungai",
-          status: "Diproses",
-          tanggal: "2024-11-28",
-          user: "Jane Smith"
-        },
-        {
-          id: "3",
-          judul: "Laporan Kebakaran Hutan",
-          status: "Selesai",
-          tanggal: "2024-11-25",
-          user: "Bob Johnson"
-        }
-      ];
-      setLaporan(mockData);
+      // Fetch produk
+      const produkRes = await fetch("/api/produk");
+      const produk: Produk[] = produkRes.ok ? await produkRes.json() : [];
+      setProdukList(produk);
+
+      // Fetch bids
+      const bidRes = await fetch("/api/bids");
+      const bids: Bid[] = bidRes.ok ? await bidRes.json() : [];
+
+      // Calculate analytics
+      const now = new Date();
+      const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      const totalProduk = produk.length;
+      const totalBid = bids.length;
+      const totalNilaiAuction = produk.reduce((sum, p) => sum + p.harga_awal, 0);
+      const averageBidAmount = bids.length > 0 ? bids.reduce((sum, b) => sum + b.bidAmount, 0) / bids.length : 0;
+
+      const produkBulanIni = produk.filter(p => new Date(p.createdAt) >= thisMonthStart).length;
+      const bidBulanIni = bids.filter(b => new Date(b.createdAt) >= thisMonthStart).length;
+
+      // Kategori distribution
+      const kategoriDistribution: Record<string, number> = {};
+      produk.forEach(p => {
+        const cat = p.kategori || "Tidak Dikategorikan";
+        kategoriDistribution[cat] = (kategoriDistribution[cat] || 0) + 1;
+      });
+
+      const hargaTertinggi = produk.length > 0 ? Math.max(...produk.map(p => p.harga_awal)) : 0;
+      const hargaTerendah = produk.length > 0 ? Math.min(...produk.map(p => p.harga_awal)) : 0;
+
+      // Top products by harga
+      const topProducts = [...produk].sort((a, b) => b.harga_awal - a.harga_awal).slice(0, 5);
+
+      setAnalytics({
+        totalProduk,
+        totalBid,
+        totalNilaiAuction,
+        averageBidAmount,
+        produkBulanIni,
+        bidBulanIni,
+        kategoriDistribution,
+        hargaTertinggi,
+        hargaTerendah,
+        topProducts,
+      });
     } catch (error) {
-      console.error("Gagal mengambil laporan:", error);
+      console.error("Gagal mengambil data:", error);
     }
     setLoading(false);
   };
@@ -65,148 +109,197 @@ export default function HalamanLaporan() {
     fetchData();
   }, []);
 
-  const totalLaporan = laporan.length;
-  const laporanMenunggu = laporan.filter((l) => l.status === "Menunggu").length;
-  const laporanProses = laporan.filter((l) => l.status === "Diproses").length;
-  const laporanSelesai = laporan.filter((l) => l.status === "Selesai").length;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 text-blue-400 animate-spin mx-auto mb-4" />
+          <p className="text-white text-lg">Memuat data analitik...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!analytics) {
+    return <div className="text-center py-16 text-gray-500">Gagal memuat data</div>;
+  }
 
   return (
-    <div className="p-4 sm:p-8 space-y-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-extrabold text-gray-900 flex items-center">
-        <BarChart2 className="w-8 h-8 mr-3 text-indigo-600" />
-        Dasbor Analitik Laporan
-      </h1>
+    <div className="h-screen w-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 overflow-hidden overflow-y-auto">
+      <div className="p-8">
+      {/* Header */}
+      <div className="mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="p-3 bg-blue-500/20 rounded-lg">
+            <BarChart2 className="w-8 h-8 text-blue-400" />
+          </div>
+          <h1 className="text-4xl font-bold text-white">Dashboard Analitik</h1>
+        </div>
+        <p className="text-gray-400">Monitor performa platform lelang mobil Anda</p>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatBox
-          title="Total Laporan"
-          count={totalLaporan}
-          color="bg-indigo-600"
-          icon={ListChecks}
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <KPICard
+          title="Total Produk"
+          value={analytics.totalProduk}
+          change={analytics.produkBulanIni}
+          changeLabel="bulan ini"
+          icon={Package}
+          color="from-blue-500 to-blue-600"
         />
-        <StatBox
-          title="Menunggu"
-          count={laporanMenunggu}
-          color="bg-yellow-500"
-          icon={Clock}
+        <KPICard
+          title="Total Tawaran"
+          value={analytics.totalBid}
+          change={analytics.bidBulanIni}
+          changeLabel="bulan ini"
+          icon={TrendingUp}
+          color="from-green-500 to-green-600"
         />
-        <StatBox
-          title="Diproses"
-          count={laporanProses}
-          color="bg-orange-500"
-          icon={Hourglass}
+        <KPICard
+          title="Nilai Total Lelang"
+          value={`Rp ${(analytics.totalNilaiAuction / 1000000).toFixed(0)}M`}
+          change={0}
+          changeLabel=""
+          icon={DollarSign}
+          color="from-purple-500 to-purple-600"
         />
-        <StatBox
-          title="Selesai"
-          count={laporanSelesai}
-          color="bg-green-600"
-          icon={CheckCircle}
+        <KPICard
+          title="Rata-rata Tawaran"
+          value={`Rp ${(analytics.averageBidAmount / 1000000).toFixed(1)}M`}
+          change={0}
+          changeLabel=""
+          icon={Activity}
+          color="from-orange-500 to-orange-600"
         />
       </div>
 
-      <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-100">
-        <h2 className="text-xl font-semibold p-4 border-b text-gray-800">Daftar Laporan Terbaru</h2>
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        {/* Price Range */}
+        <div className="lg:col-span-1 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+          <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
+            <DollarSign className="w-5 h-5 text-purple-400" />
+            Rentang Harga
+          </h3>
+          <div className="space-y-6">
+            <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 rounded-xl p-4">
+              <p className="text-green-300 text-sm opacity-80">Harga Terendah</p>
+              <p className="text-green-100 text-2xl font-bold mt-2">
+                Rp {(analytics.hargaTerendah / 1000000).toFixed(0)}M
+              </p>
+            </div>
+            <div className="bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 rounded-xl p-4">
+              <p className="text-red-300 text-sm opacity-80">Harga Tertinggi</p>
+              <p className="text-red-100 text-2xl font-bold mt-2">
+                Rp {(analytics.hargaTertinggi / 1000000).toFixed(0)}M
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Category Distribution */}
+        <div className="lg:col-span-2 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+          <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
+            <Package className="w-5 h-5 text-blue-400" />
+            Distribusi Kategori
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {Object.entries(analytics.kategoriDistribution).map(([category, count]) => (
+              <div key={category} className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl p-4">
+                <p className="text-blue-300 text-sm mb-2 line-clamp-2">{category}</p>
+                <p className="text-blue-100 text-3xl font-bold">{count}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Top Products */}
+      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+        <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
+          <TrendingUp className="w-5 h-5 text-yellow-400" />
+          Top Produk Berdasarkan Harga
+        </h3>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-gray-700 divide-y divide-gray-200">
-            <thead className="bg-gray-50 text-xs uppercase tracking-wider">
-              <tr>
-                <th className="py-3 px-6 text-left">Judul</th>
-                <th className="py-3 px-6 text-left">Pelapor</th>
-                <th className="py-3 px-6 text-center">Status</th>
-                <th className="py-3 px-6 text-left">Tanggal</th>
-                <th className="py-3 px-6 text-center">Aksi</th>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="text-left py-4 px-4 text-gray-300">Nama Produk</th>
+                <th className="text-left py-4 px-4 text-gray-300">Harga</th>
+                <th className="text-left py-4 px-4 text-gray-300">Kategori</th>
+                <th className="text-left py-4 px-4 text-gray-300">Tanggal</th>
               </tr>
             </thead>
             <tbody>
-              {loading ? (
-                <tr>
-                  <td colSpan={5} className="text-center py-8 text-indigo-500 font-medium">
-                    <Loader2 className="w-5 h-5 inline-block mr-2 animate-spin" />
-                    Mengambil data...
+              {analytics.topProducts.map((product, idx) => (
+                <tr
+                  key={product.id}
+                  className="border-b border-white/5 hover:bg-white/5 transition cursor-pointer"
+                  onClick={() => router.push(`/admin/produk`)}
+                >
+                  <td className="py-4 px-4 text-white">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
+                        {idx + 1}
+                      </div>
+                      <span className="line-clamp-1">{product.nama_barang}</span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-4 text-green-400 font-semibold">
+                    Rp {(product.harga_awal / 1000000).toFixed(0)}M
+                  </td>
+                  <td className="py-4 px-4">
+                    <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
+                      {product.kategori || "Umum"}
+                    </span>
+                  </td>
+                  <td className="py-4 px-4 text-gray-400">
+                    {new Date(product.createdAt).toLocaleDateString("id-ID")}
                   </td>
                 </tr>
-              ) : laporan.length === 0 ? (
-                <tr>
-                  <td colSpan={5} className="text-center py-8 text-gray-400">
-                    Tidak ditemukan laporan.
-                  </td>
-                </tr>
-              ) : (
-                laporan.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="border-b last:border-b-0 hover:bg-indigo-50/50 transition duration-150 cursor-pointer"
-                    onClick={() => router.push(`/admin/laporan/${item.id}`)}
-                  >
-                    <td className="py-4 px-6 font-medium text-gray-800">{item.judul}</td>
-                    <td className="py-4 px-6">{item.user}</td>
-
-                    <td className="py-4 px-6 text-center">
-                      <StatusBadge status={item.status} />
-                    </td>
-
-                    <td className="py-4 px-6">
-                      {new Date(item.tanggal).toLocaleDateString("id-ID")}
-                    </td>
-                    <td className="py-4 px-6 text-center">
-                      <ChevronRight className="w-5 h-5 text-gray-400 inline-block hover:text-indigo-600 transition" />
-                    </td>
-                  </tr>
-                ))
-              )}
+              ))}
             </tbody>
           </table>
         </div>
       </div>
+      </div>
     </div>
   );
 }
 
-// Komponen StatBox dan StatusBadge tetap sama
-function StatBox({
+function KPICard({
   title,
-  count,
-  color,
+  value,
+  change,
+  changeLabel,
   icon: Icon,
+  color,
 }: {
   title: string;
-  count: number;
-  color: string;
+  value: string | number;
+  change: number;
+  changeLabel: string;
   icon: React.ElementType;
+  color: string;
 }) {
   return (
-    <div className={`${color} text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] flex items-center justify-between`}>
-      <div>
-        <span className="text-sm opacity-90 uppercase tracking-wider">{title}</span>
-        <span className="text-4xl font-extrabold block mt-1">{count}</span>
+    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 hover:border-white/40 transition group">
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <p className="text-gray-400 text-sm mb-1">{title}</p>
+          <p className="text-3xl font-bold text-white">{value}</p>
+        </div>
+        <div className={`p-3 bg-gradient-to-br ${color} rounded-lg group-hover:scale-110 transition`}>
+          <Icon className="w-6 h-6 text-white" />
+        </div>
       </div>
-      <Icon className="w-8 h-8 opacity-70" />
+      {change > 0 && (
+        <div className="flex items-center gap-2 text-green-400 text-sm">
+          <ArrowUpRight className="w-4 h-4" />
+          <span>+{change} {changeLabel}</span>
+        </div>
+      )}
     </div>
-  );
-}
-
-function StatusBadge({ status }: { status: "Menunggu" | "Diproses" | "Selesai" }) {
-  let colorClass = "";
-
-  switch (status) {
-    case "Menunggu":
-      colorClass = "bg-yellow-100 text-yellow-700 ring-yellow-500/50";
-      break;
-    case "Diproses":
-      colorClass = "bg-orange-100 text-orange-700 ring-orange-500/50";
-      break;
-    case "Selesai":
-      colorClass = "bg-green-100 text-green-700 ring-green-500/50";
-      break;
-    default:
-      colorClass = "bg-gray-100 text-gray-700 ring-gray-500/50";
-  }
-
-  return (
-    <span
-      className={`px-3 py-1 rounded-full text-xs font-semibold ring-1 ${colorClass}`}
-    >
-      {status}
-    </span>
   );
 }
