@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@/lib/generated';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 // PUT: Update bid status (admin approval/rejection)
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

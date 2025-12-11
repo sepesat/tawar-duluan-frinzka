@@ -17,6 +17,14 @@ model User {
   bids      Bid[]
 }
 
+enum Kategori {
+  SEMUA
+  RAMAI
+  SEGERA
+  BARU
+  DIBAWAH100
+}
+
 model Produk {
   id          String   @id @default(cuid())
   nama_barang String
@@ -24,7 +32,6 @@ model Produk {
   harga_awal  Int
   deskripsi   String
   image_url   String? // Optional image URL for product photos
-  kategori    String? // Category: "semua" | "ramai" | "segera" | "100juta" | "baru"
   // Car-specific fields
   merk_mobil  String? // Car brand (Toyota, Honda, etc.)
   tipe_mobil  String? // Car type/series (Avanza, Civic, etc.)
@@ -32,8 +39,11 @@ model Produk {
   jumlah_seat Int? // Number of seats
   tahun       Int? // Year of manufacture
   kilometer   Int? // Mileage
-  createdAt   DateTime @default(now())
-  bids        Bid[]
+
+  kategori Kategori @default(SEMUA)
+
+  createdAt DateTime @default(now())
+  bids      Bid[]
 }
 
 model Bid {

@@ -37,10 +37,9 @@ export function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     };
 
     const navItems = [
-        { name: 'Dashboard Utama', href: '/admin/dashboard', icon: Home },
+        { name: 'Laporan Analitik', href: '/admin/laporan', icon: BarChart2 },
         { name: 'Manajemen Petugas', href: '/admin/pengguna', icon: Users },
         { name: 'Pengelolaan Produk', href: '/admin/produk', icon: Package },
-        { name: 'Laporan Analitik', href: '/admin/laporan', icon: BarChart2 },
     ];
 
     const sidebarClass = `fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out backdrop-blur-sm border-r border-slate-700/50

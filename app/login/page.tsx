@@ -17,14 +17,28 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      if (!email || !password) {
+        setErrorMsg("Email dan password harus diisi");
+        setLoading(false);
+        return;
+      }
+
       const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
+      // Cek apakah response adalah JSON
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await res.text();
+        console.error("Non-JSON response:", text);
+        throw new Error("Server error: Invalid response format");
+      }
+
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.error || "Login gagal");
 
       // jika admin, arahkan ke dashboard admin
       if (data.role === "admin") {
@@ -35,9 +49,10 @@ export default function LoginPage() {
         router.push("/"); // masyarakat
       }
       console.log("RESPON LOGIN:", data);
-    console.log("ROLE:", data.role);
+      console.log("ROLE:", data.role);
 
     } catch (err: any) {
+      console.error("LOGIN ERROR:", err);
       setErrorMsg(err.message || "Gagal login");
     } finally {
       setLoading(false);

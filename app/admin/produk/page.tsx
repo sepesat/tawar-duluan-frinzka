@@ -373,19 +373,21 @@ export default function ProdukPage() {
 
 
   return (
-    <main className="flex-1 p-6 bg-gray-50 min-h-screen">
+    <main className="flex-1 p-6 min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6 pb-4">
-          <h1 className="text-3xl font-extrabold text-gray-900 flex items-center">
-            <Package className="w-8 h-8 mr-3 text-indigo-600" />
+          <h1 className="text-3xl font-extrabold text-white flex items-center">
+            <div className="p-2.5 bg-blue-500/20 rounded-lg mr-3">
+              <Package className="w-8 h-8 text-blue-300" />
+            </div>
             Daftar Produk Lelang
           </h1>
 
           <button
             onClick={() => { setModalOpen(true); setEditingId(null); }}
-            className="bg-indigo-600 text-white px-5 py-2 rounded-lg font-semibold shadow-md hover:bg-indigo-700 transition duration-150 flex items-center"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white font-semibold rounded-lg shadow hover:from-indigo-600 hover:to-indigo-700 transition"
           >
-            <Plus className="w-5 h-5 mr-2" />
+            <Plus className="w-5 h-5" />
             Tambah Produk
           </button>
         </div>
@@ -394,7 +396,7 @@ export default function ProdukPage() {
           <button
             onClick={() => setActiveFilter("semua")}
             className={`px-4 py-2 rounded-lg font-medium ${
-              activeFilter === "semua" ? "bg-indigo-600 text-white" : "bg-gray-200"
+              activeFilter === "semua" ? "bg-white/10 text-white" : "bg-white/6 text-white/80 hover:bg-white/10"
             }`}
           >
             Semua Produk
@@ -406,8 +408,8 @@ export default function ProdukPage() {
               onClick={() => setActiveFilter(kategori)}
               className={`px-4 py-2 rounded-lg font-medium ${
                 activeFilter === kategori
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  ? "bg-white/10 text-white"
+                  : "bg-white/6 text-white/80 hover:bg-white/10"
               }`}
             >
               {formatKategori(kategori)}
@@ -416,92 +418,42 @@ export default function ProdukPage() {
 
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/20">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-indigo-50">
-                <tr>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Nama Barang
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Merk/Tipe
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Transmisi
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Seats
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Tahun
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Kilometer
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Tanggal
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Harga Awal
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Kategori
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Deskripsi
-                  </th>
-                  <th className="py-3 px-6 text-center text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                    Aksi
-                  </th>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-xs text-gray-300 uppercase tracking-wider">
+                  <th className="py-3 px-6 text-left">Nama Barang</th>
+                  <th className="py-3 px-6 text-left">Merk/Tipe</th>
+                  <th className="py-3 px-6 text-left">Transmisi</th>
+                  <th className="py-3 px-6 text-left">Seats</th>
+                  <th className="py-3 px-6 text-left">Tahun</th>
+                  <th className="py-3 px-6 text-left">Kilometer</th>
+                  <th className="py-3 px-6 text-left">Tanggal</th>
+                  <th className="py-3 px-6 text-left">Harga Awal</th>
+                  <th className="py-3 px-6 text-left">Kategori</th>
+                  <th className="py-3 px-6 text-left">Deskripsi</th>
+                  <th className="py-3 px-6 text-center">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-100">
+              <tbody>
                 {filteredProdukList.map((produk) => (
-                  <tr key={produk.id} className="hover:bg-gray-50 transition duration-150">
-                    <td className="py-4 px-6 text-sm font-medium text-gray-900">
-                      {produk.nama_barang}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {`${produk.merk_mobil || ''} ${produk.tipe_mobil || ''}`.trim() || '-'}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {produk.transmisi || '-'}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {produk.jumlah_seat || '-'}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {produk.tahun || '-'}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {produk.kilometer ? `${produk.kilometer} km` : '-'}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {new Date(produk.tanggal).toLocaleDateString("id-ID")}
-                    </td>
-                    <td className="py-4 px-6 text-sm font-semibold text-green-600">
-                      {formatRupiah(produk.harga_awal)}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500">
-                      {produk.kategori || '-'}
-                    </td>
-                    <td className="py-4 px-6 text-sm text-gray-500 max-w-xs truncate">
-                      {produk.deskripsi}
-                    </td>
+                  <tr key={produk.id} className="border-t border-white/6 hover:bg-white/5 transition duration-150">
+                    <td className="py-4 px-6 text-sm font-medium text-white">{produk.nama_barang}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{`${produk.merk_mobil || ''} ${produk.tipe_mobil || ''}`.trim() || '-'}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{produk.transmisi || '-'}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{produk.jumlah_seat || '-'}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{produk.tahun || '-'}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{produk.kilometer ? `${produk.kilometer} km` : '-'}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{new Date(produk.tanggal).toLocaleDateString("id-ID")}</td>
+                    <td className="py-4 px-6 text-sm font-semibold text-green-300">{formatRupiah(produk.harga_awal)}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300">{produk.kategori || '-'}</td>
+                    <td className="py-4 px-6 text-sm text-gray-300 max-w-xs truncate">{produk.deskripsi}</td>
                     <td className="py-4 px-6 whitespace-nowrap text-center space-x-2">
-                      <button
-                        onClick={() => handleEdit(produk)}
-                        className="text-white bg-yellow-500 hover:bg-yellow-600 font-medium py-1 px-3 rounded-full inline-flex items-center text-xs transition duration-150 shadow-sm"
-                        title="Edit Produk"
-                      >
+                      <button onClick={() => handleEdit(produk)} className="text-white bg-yellow-500 hover:bg-yellow-600 font-medium py-1 px-3 rounded-full inline-flex items-center text-xs transition duration-150 shadow-sm" title="Edit Produk">
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button
-                        onClick={() => handleDelete(produk.id)}
-                        className="text-white bg-red-600 hover:bg-red-700 font-medium py-1 px-3 rounded-full inline-flex items-center text-xs transition duration-150 shadow-sm"
-                        title="Hapus Produk"
-                      >
+                      <button onClick={() => handleDelete(produk.id)} className="text-white bg-red-600 hover:bg-red-700 font-medium py-1 px-3 rounded-full inline-flex items-center text-xs transition duration-150 shadow-sm" title="Hapus Produk">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
@@ -515,7 +467,7 @@ export default function ProdukPage() {
 
       {modalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeModal}>
-          <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] relative shadow-2xl border border-gray-100 flex flex-col" onClick={e => e.stopPropagation()}>
+          <div className="w-full max-w-2xl max-h-[90vh] relative shadow-2xl border border-white/10 bg-white/5 text-white rounded-3xl flex flex-col" onClick={e => e.stopPropagation()}>
 
             <div className="flex-1 overflow-y-auto">
               <form onSubmit={handleSubmit} className="p-8 space-y-8">
@@ -535,7 +487,7 @@ export default function ProdukPage() {
 
                   {/* Product Name */}
                   <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <label className="text-sm font-semibold text-white flex items-center gap-2">
                       <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                       Nama Produk Lelang
                       <span className="text-red-500">*</span>
@@ -545,8 +497,8 @@ export default function ProdukPage() {
                       value={form.nama_barang ?? ""}
                       onChange={(e) => handleInputChange('nama_barang', e.target.value)}
                       onBlur={() => handleBlur('nama_barang')}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 ${
-                        errors.nama_barang ? 'border-red-500' : 'border-gray-200'
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 ${
+                        errors.nama_barang ? 'border-red-500' : 'border-white/10'
                       }`}
                       required
                     />
@@ -556,13 +508,13 @@ export default function ProdukPage() {
                         {errors.nama_barang}
                       </p>
                     )}
-                    <p className="text-xs text-gray-500">Gunakan nama yang jelas dan menarik untuk menarik perhatian bidder</p>
+                      <p className="text-xs text-gray-300">Gunakan nama yang jelas dan menarik untuk menarik perhatian bidder</p>
                   </div>
 
                   {/* Auction Details */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-[#0138C9]" />
                         Tanggal Berakhir Lelang
                         <span className="text-red-500">*</span>
@@ -573,8 +525,8 @@ export default function ProdukPage() {
                         onChange={(e) => handleInputChange('tanggal', e.target.value)}
                         onBlur={() => handleBlur('tanggal')}
                         min={new Date().toISOString().split('T')[0]}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 ${
-                          errors.tanggal ? 'border-red-500' : 'border-gray-200'
+                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 ${
+                          errors.tanggal ? 'border-red-500' : 'border-white/10'
                         }`}
                         required
                       />
@@ -584,11 +536,11 @@ export default function ProdukPage() {
                           {errors.tanggal}
                         </p>
                       )}
-                      <p className="text-xs text-gray-500">Pilih tanggal minimal 7 hari dari sekarang</p>
+                      <p className="text-xs text-gray-300">Pilih tanggal minimal 7 hari dari sekarang</p>
                     </div>
 
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <DollarSign className="w-4 h-4 text-[#0138C9]" />
                         Harga Awal (Rp)
                         <span className="text-red-500">*</span>
@@ -603,25 +555,25 @@ export default function ProdukPage() {
                           onBlur={() => handleBlur('harga_awal')}
                           min="100000"
                           step="100000"
-                          className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 ${
-                            errors.harga_awal ? 'border-red-500' : 'border-gray-200'
+                          className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 ${
+                            errors.harga_awal ? 'border-red-500' : 'border-white/10'
                           }`}
                           required
                         />
                       </div>
                       {errors.harga_awal && (
-                        <p className="text-xs text-red-600 flex items-center gap-1">
+                        <p className="text-xs text-red-400 flex items-center gap-1">
                           <AlertCircle className="w-3 h-3" />
                           {errors.harga_awal}
                         </p>
                       )}
-                      <p className="text-xs text-gray-500">Minimal Rp 100.000, kelipatan Rp 100.000</p>
+                      <p className="text-xs text-gray-300">Minimal Rp 100.000, kelipatan Rp 100.000</p>
                     </div>
                   </div>
 
                   {/* Kategori */}
                   <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <label className="text-sm font-semibold text-white flex items-center gap-2">
                       <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                       Kategori Produk
                       <span className="text-orange-500">(Opsional)</span>
@@ -629,7 +581,7 @@ export default function ProdukPage() {
                     <select
                       value={form.kategori || ""}
                       onChange={(e) => handleInputChange('kategori', e.target.value)}
-                      className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                      className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                     >
                       <option value="">Pilih Kategori</option>
                       <option value="SEMUA">Semua Mobil</option>
@@ -638,18 +590,18 @@ export default function ProdukPage() {
                       <option value="DIBAWAH100">Di Bawah 100 Juta</option>
                       <option value="BARU">Baru Masuk</option>
                     </select>
-                    <p className="text-xs text-gray-500">Pilih kategori produk untuk tampilan di halaman jelajahi</p>
+                    <p className="text-xs text-gray-300">Pilih kategori produk untuk tampilan di halaman jelajahi</p>
                   </div>
                 </div>
 
                 {/* Car Details Section */}
                 <div className="space-y-6">
-                  <h3 className="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">Detail Mobil</h3>
+                  <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">Detail Mobil</h3>
 
                   {/* Car Brand and Type */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                         Merk Mobil
                         <span className="text-orange-500">(Opsional)</span>
@@ -659,13 +611,13 @@ export default function ProdukPage() {
                         placeholder="Contoh: Toyota, Honda, Mitsubishi"
                         value={form.merk_mobil ?? ""}
                         onChange={(e) => handleInputChange('merk_mobil', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                       />
                       <p className="text-xs text-gray-500">Masukkan merk mobil (brand)</p>
                     </div>
 
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                         Tipe/Series Mobil
                         <span className="text-orange-500">(Opsional)</span>
@@ -675,7 +627,7 @@ export default function ProdukPage() {
                         placeholder="Contoh: Avanza, Civic, Pajero"
                         value={form.tipe_mobil ?? ""}
                         onChange={(e) => handleInputChange('tipe_mobil', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                       />
                       <p className="text-xs text-gray-500">Masukkan tipe atau series mobil</p>
                     </div>
@@ -684,7 +636,7 @@ export default function ProdukPage() {
                   {/* Transmission and Seats */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                         Transmisi
                         <span className="text-orange-500">(Opsional)</span>
@@ -692,7 +644,7 @@ export default function ProdukPage() {
                       <select
                         value={form.transmisi ?? ""}
                         onChange={(e) => handleInputChange('transmisi', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                       >
                         <option value="">Pilih Transmisi</option>
                         <option value="Matic">Matic</option>
@@ -702,7 +654,7 @@ export default function ProdukPage() {
                     </div>
 
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                         Jumlah Seat
                         <span className="text-orange-500">(Opsional)</span>
@@ -714,7 +666,7 @@ export default function ProdukPage() {
                         onChange={(e) => handleInputChange('jumlah_seat', Number(e.target.value))}
                         min="1"
                         max="20"
-                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                       />
                       <p className="text-xs text-gray-500">Masukkan jumlah seat mobil</p>
                     </div>
@@ -723,7 +675,7 @@ export default function ProdukPage() {
                   {/* Year and Mileage */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-[#0138C9]" />
                         Tahun Pembuatan
                         <span className="text-orange-500">(Opsional)</span>
@@ -735,13 +687,13 @@ export default function ProdukPage() {
                         onChange={(e) => handleInputChange('tahun', Number(e.target.value))}
                         min="1900"
                         max={new Date().getFullYear() + 1}
-                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                       />
                       <p className="text-xs text-gray-500">Masukkan tahun pembuatan mobil</p>
                     </div>
 
                     <div className="space-y-3">
-                      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                      <label className="text-sm font-semibold text-white flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4 text-[#0138C9]" />
                         Kilometer
                         <span className="text-orange-500">(Opsional)</span>
@@ -752,7 +704,7 @@ export default function ProdukPage() {
                         value={form.kilometer ?? ""}
                         onChange={(e) => handleInputChange('kilometer', Number(e.target.value))}
                         min="0"
-                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 border-gray-200"
+                        className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 border-white/10"
                       />
                       <p className="text-xs text-gray-500">Masukkan kilometer mobil (dalam km)</p>
                     </div>
@@ -762,7 +714,7 @@ export default function ProdukPage() {
                 {/* Product Description Section */}
                 <div className="space-y-6">
                   <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <label className="text-sm font-semibold text-white flex items-center gap-2">
                       <FileText className="w-4 h-4 text-[#0138C9]" />
                       Deskripsi Lengkap
                       <span className="text-red-500">*</span>
@@ -773,8 +725,8 @@ export default function ProdukPage() {
                       onChange={(e) => handleInputChange('deskripsi', e.target.value)}
                       onBlur={() => handleBlur('deskripsi')}
                       rows={8}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white hover:bg-gray-50 resize-none ${
-                        errors.deskripsi ? 'border-red-500' : 'border-gray-200'
+                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#0138C9]/20 focus:border-[#0138C9] transition-all duration-200 bg-white/5 text-white placeholder:text-white/60 hover:bg-white/6 resize-none ${
+                        errors.deskripsi ? 'border-red-500' : 'border-white/10'
                       }`}
                       required
                     />
@@ -791,12 +743,12 @@ export default function ProdukPage() {
                 {/* Product Image Section */}
                 <div className="space-y-6">
                   <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                    <label className="text-sm font-semibold text-white flex items-center gap-2">
                       <Image className="w-4 h-4 text-[#0138C9]" />
                       Foto Produk
                       <span className="text-orange-500">(Opsional)</span>
                     </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-[#0138C9] transition-colors bg-gray-50/50 hover:bg-white">
+                    <div className="border-2 border-dashed border-white/10 rounded-xl p-8 hover:border-[#0138C9] transition-colors bg-white/6 hover:bg-white/8">
                       <input
                         type="file"
                         accept="image/*"
@@ -808,14 +760,14 @@ export default function ProdukPage() {
                         <div className="w-16 h-16 bg-[#0138C9]/10 rounded-full flex items-center justify-center mb-4">
                           <Image className="w-8 h-8 text-[#0138C9]" />
                         </div>
-                        <p className="text-sm text-gray-600 text-center mb-2">
+                        <p className="text-sm text-gray-300 text-center mb-2">
                           {selectedFile ? (
                             <span className="text-[#0138C9] font-medium">{selectedFile.name}</span>
                           ) : (
                             "Klik untuk upload foto produk"
                           )}
                         </p>
-                        <p className="text-xs text-gray-500 text-center">
+                        <p className="text-xs text-gray-300 text-center">
                           Format: PNG, JPG, JPEG<br/>
                           Ukuran maksimal: 5MB<br/>
                           Rekomendasi: Foto dari berbagai sudut
@@ -826,15 +778,15 @@ export default function ProdukPage() {
                 </div>
 
                 {/* Submit Section */}
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="bg-blue-50 rounded-lg p-4 mb-6">
+                  <div className="border-t border-white/10 pt-6">
+                  <div className="bg-white/6 rounded-lg p-4 mb-6 text-white">
                     <div className="flex items-start gap-3">
-                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-blue-600 text-xs">ℹ️</span>
+                      <div className="w-5 h-5 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-white text-xs">ℹ️</span>
                       </div>
                       <div>
-                        <h4 className="text-sm font-medium text-blue-800 mb-1">Tips untuk Lelang Sukses</h4>
-                        <ul className="text-xs text-blue-700 space-y-1">
+                        <h4 className="text-sm font-medium text-white mb-1">Tips untuk Lelang Sukses</h4>
+                        <ul className="text-xs text-gray-300 space-y-1">
                           <li>• Gunakan nama produk yang menarik dan spesifik</li>
                           <li>• Berikan deskripsi yang detail dan jujur</li>
                           <li>• Tetapkan harga awal yang realistis</li>

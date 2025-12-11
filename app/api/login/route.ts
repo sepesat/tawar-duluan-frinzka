@@ -16,13 +16,30 @@ export async function POST(req: Request) {
   console.log("API LOGIN KEPAKE 👍");
 
   try {
+    const body = await req.json();
+    console.log("REQUEST BODY:", body);
     
-    const { email, password } = await req.json();
+    const { email, password } = body;
+    
+    if (!email || !password) {
+      console.log("Missing email or password");
+      return NextResponse.json({ error: "Email dan password harus diisi" }, { status: 400 });
+    }
 
+    console.log("Mencari user dengan email:", email);
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) return NextResponse.json({ error: "Email tidak ditemukan" }, { status: 400 });
-    if (user.password !== password) return NextResponse.json({ error: "Password salah" }, { status: 400 });
+    
+    if (!user) {
+      console.log("User tidak ditemukan");
+      return NextResponse.json({ error: "Email tidak ditemukan" }, { status: 400 });
+    }
+    
+    if (user.password !== password) {
+      console.log("Password salah");
+      return NextResponse.json({ error: "Password salah" }, { status: 400 });
+    }
 
+    console.log("User verified, creating token");
     const token = await new SignJWT({
       uid: user.id,
       role: user.role,
@@ -38,10 +55,12 @@ export async function POST(req: Request) {
       "Set-Cookie",
       `token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`
     );
+    console.log("Login successful, returning response");
     return res;
   } catch (error: any) {
     console.error("LOGIN API ERROR:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    console.error("ERROR STACK:", error.stack);
+    return NextResponse.json({ error: "Internal server error: " + error.message }, { status: 500 });
   }
 }
 

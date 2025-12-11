@@ -125,21 +125,21 @@ export default function HalamanLaporan() {
   }
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 overflow-hidden overflow-y-auto">
-      <div className="p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
+      <div className="max-w-7xl mx-auto p-8">
       {/* Header */}
-      <div className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-3 bg-blue-500/20 rounded-lg">
-            <BarChart2 className="w-8 h-8 text-blue-400" />
+      <div className="mb-8 pb-6 border-b border-white/10">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2.5 bg-blue-500/20 rounded-lg">
+            <BarChart2 className="w-6 h-6 text-blue-400" />
           </div>
-          <h1 className="text-4xl font-bold text-white">Dashboard Analitik</h1>
+          <h1 className="text-3xl font-bold text-white">Dashboard Analitik</h1>
         </div>
-        <p className="text-gray-400">Monitor performa platform lelang mobil Anda</p>
+        <p className="text-gray-400 text-sm ml-11">Monitor performa platform lelang mobil Anda</p>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <KPICard
           title="Total Produk"
           value={analytics.totalProduk}
@@ -175,23 +175,23 @@ export default function HalamanLaporan() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* Price Range */}
-        <div className="lg:col-span-1 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-          <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
-            <DollarSign className="w-5 h-5 text-purple-400" />
+        <div className="lg:col-span-1 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5">
+          <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+            <DollarSign className="w-4 h-4 text-purple-400" />
             Rentang Harga
           </h3>
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 rounded-xl p-4">
-              <p className="text-green-300 text-sm opacity-80">Harga Terendah</p>
-              <p className="text-green-100 text-2xl font-bold mt-2">
+          <div className="space-y-3">
+            <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 rounded-lg p-3">
+              <p className="text-green-300 text-xs opacity-80">Harga Terendah</p>
+              <p className="text-green-100 text-xl font-bold mt-1">
                 Rp {(analytics.hargaTerendah / 1000000).toFixed(0)}M
               </p>
             </div>
-            <div className="bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 rounded-xl p-4">
-              <p className="text-red-300 text-sm opacity-80">Harga Tertinggi</p>
-              <p className="text-red-100 text-2xl font-bold mt-2">
+            <div className="bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 rounded-lg p-3">
+              <p className="text-red-300 text-xs opacity-80">Harga Tertinggi</p>
+              <p className="text-red-100 text-xl font-bold mt-1">
                 Rp {(analytics.hargaTertinggi / 1000000).toFixed(0)}M
               </p>
             </div>
@@ -199,16 +199,16 @@ export default function HalamanLaporan() {
         </div>
 
         {/* Category Distribution */}
-        <div className="lg:col-span-2 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-          <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
-            <Package className="w-5 h-5 text-blue-400" />
+        <div className="lg:col-span-2 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5">
+          <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+            <Package className="w-4 h-4 text-blue-400" />
             Distribusi Kategori
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {Object.entries(analytics.kategoriDistribution).map(([category, count]) => (
-              <div key={category} className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl p-4">
-                <p className="text-blue-300 text-sm mb-2 line-clamp-2">{category}</p>
-                <p className="text-blue-100 text-3xl font-bold">{count}</p>
+              <div key={category} className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-lg p-3">
+                <p className="text-blue-300 text-xs mb-1 line-clamp-2">{category}</p>
+                <p className="text-blue-100 text-2xl font-bold">{count}</p>
               </div>
             ))}
           </div>
@@ -216,19 +216,19 @@ export default function HalamanLaporan() {
       </div>
 
       {/* Top Products */}
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
-        <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-yellow-400" />
-          Top Produk Berdasarkan Harga
+      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5">
+        <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+          <TrendingUp className="w-4 h-4 text-yellow-400" />
+          Top 5 Produk Berdasarkan Harga
         </h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs">
             <thead>
               <tr className="border-b border-white/10">
-                <th className="text-left py-4 px-4 text-gray-300">Nama Produk</th>
-                <th className="text-left py-4 px-4 text-gray-300">Harga</th>
-                <th className="text-left py-4 px-4 text-gray-300">Kategori</th>
-                <th className="text-left py-4 px-4 text-gray-300">Tanggal</th>
+                <th className="text-left py-2 px-3 text-gray-300 font-medium">Nama Produk</th>
+                <th className="text-left py-2 px-3 text-gray-300 font-medium">Harga</th>
+                <th className="text-left py-2 px-3 text-gray-300 font-medium">Kategori</th>
+                <th className="text-left py-2 px-3 text-gray-300 font-medium">Tanggal</th>
               </tr>
             </thead>
             <tbody>
@@ -238,23 +238,23 @@ export default function HalamanLaporan() {
                   className="border-b border-white/5 hover:bg-white/5 transition cursor-pointer"
                   onClick={() => router.push(`/admin/produk`)}
                 >
-                  <td className="py-4 px-4 text-white">
+                  <td className="py-2 px-3 text-white">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
+                      <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-blue-600 rounded text-white text-xs font-bold flex items-center justify-center">
                         {idx + 1}
                       </div>
-                      <span className="line-clamp-1">{product.nama_barang}</span>
+                      <span className="line-clamp-1 text-xs">{product.nama_barang}</span>
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-green-400 font-semibold">
+                  <td className="py-2 px-3 text-green-400 font-semibold text-xs">
                     Rp {(product.harga_awal / 1000000).toFixed(0)}M
                   </td>
-                  <td className="py-4 px-4">
-                    <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs">
+                  <td className="py-2 px-3">
+                    <span className="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded text-xs">
                       {product.kategori || "Umum"}
                     </span>
                   </td>
-                  <td className="py-4 px-4 text-gray-400">
+                  <td className="py-2 px-3 text-gray-400 text-xs">
                     {new Date(product.createdAt).toLocaleDateString("id-ID")}
                   </td>
                 </tr>
@@ -284,19 +284,19 @@ function KPICard({
   color: string;
 }) {
   return (
-    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 hover:border-white/40 transition group">
-      <div className="flex items-start justify-between mb-4">
+    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:border-white/40 transition group">
+      <div className="flex items-start justify-between mb-3">
         <div>
-          <p className="text-gray-400 text-sm mb-1">{title}</p>
-          <p className="text-3xl font-bold text-white">{value}</p>
+          <p className="text-gray-400 text-xs mb-0.5">{title}</p>
+          <p className="text-2xl font-bold text-white">{value}</p>
         </div>
-        <div className={`p-3 bg-gradient-to-br ${color} rounded-lg group-hover:scale-110 transition`}>
-          <Icon className="w-6 h-6 text-white" />
+        <div className={`p-2.5 bg-gradient-to-br ${color} rounded-lg group-hover:scale-110 transition`}>
+          <Icon className="w-5 h-5 text-white" />
         </div>
       </div>
       {change > 0 && (
-        <div className="flex items-center gap-2 text-green-400 text-sm">
-          <ArrowUpRight className="w-4 h-4" />
+        <div className="flex items-center gap-1 text-green-400 text-xs">
+          <ArrowUpRight className="w-3 h-3" />
           <span>+{change} {changeLabel}</span>
         </div>
       )}

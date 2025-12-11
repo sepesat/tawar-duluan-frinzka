@@ -31,7 +31,9 @@ export default function MyBids() {
       const res = await fetch('/api/bids');
       if (res.ok) {
         const data = await res.json();
-        setBids(data);
+        // Filter to show only approved bids
+        const approvedBids = data.filter((bid: Bid) => bid.status === 'approved');
+        setBids(approvedBids);
       } else if (res.status === 401) {
         // User not authenticated, redirect to login
         window.location.href = '/login';
@@ -63,106 +65,49 @@ export default function MyBids() {
       </div>
 
       <div className="space-y-6">
+        {loading ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">Memuat bid Anda...</p>
+          </div>
+        ) : bids.length === 0 ? (
+          <div className="text-center py-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8">
+            <p className="text-gray-600 text-lg font-semibold">Anda belum memiliki bid yang di-approve.</p>
+            <p className="text-gray-500 mt-2">Tunggu admin untuk meng-approve bid Anda.</p>
+          </div>
+        ) : (
+          bids.map((bid) => (
+            <div key={bid.id} className="grid grid-cols-1 md:grid-cols-12 items-center bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-2xl shadow-xl transition-all duration-500 transform hover:scale-105 border-l-8 border-green-500">
+              <div className="col-span-3 flex items-center gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-[#0138C9]">{bid.produk.nama_barang}</h3>
+                  <p className="text-sm text-gray-600 font-medium">Harga Awal: Rp {bid.produk.harga_awal.toLocaleString('id-ID')}</p>
+                </div>
+              </div>
 
-        {/* Card 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-2xl shadow-xl transition-all duration-500 transform hover:scale-105 border-l-8 border-green-500">
-          <div className="col-span-3 flex items-center gap-4">
-            <Image src="/images/products/car1.jpg" alt="Toyota Avanza" width={80} height={60} className="rounded-xl object-cover shadow-md" />
-            <div>
-              <h3 className="text-lg font-bold text-[#0138C9]">Toyota Avanza 2020</h3>
-              <p className="text-sm text-gray-600 font-medium">Automatic</p>
+              <div className="col-span-2 text-center">
+                <p className="text-lg font-bold text-green-600">Rp {bid.produk.harga_awal.toLocaleString('id-ID')}</p>
+              </div>
+
+              <div className="col-span-2 text-center">
+                <p className="text-lg font-bold text-[#0138C9]">Rp {bid.bidAmount.toLocaleString('id-ID')}</p>
+                <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full font-medium">Bid Anda</span>
+              </div>
+
+              <div className="col-span-3 text-center">
+                <div className="bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-2 px-4 rounded-full text-sm inline-block shadow-md">
+                  DISETUJUI
+                </div>
+                <p className="text-xs text-green-700 mt-2 font-semibold">✓ Bid Anda Telah Disetujui Admin</p>
+              </div>
+
+              <div className="col-span-2 flex justify-end">
+                <button className="bg-gradient-to-r from-[#0138C9] to-[#0056b3] text-white font-bold py-3 px-4 text-sm rounded-xl hover:from-[#0056b3] hover:to-[#0138C9] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                  Lanjutkan
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="col-span-2 text-center">
-            <p className="text-lg font-bold text-green-600">Rp 152.000.000</p>
-          </div>
-
-          <div className="col-span-2 text-center">
-            <p className="text-lg font-bold text-[#0138C9]">Rp 152.000.000</p>
-            <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full font-medium">Anda yang terakhir</span>
-          </div>
-
-          <div className="col-span-3 text-center">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-2 px-4 rounded-full text-sm inline-block animate-pulse shadow-md">
-              Sisa 01:23:45
-            </div>
-            <p className="text-xs text-green-700 mt-2 font-semibold">Anda Memimpin! (Tertinggi)</p>
-          </div>
-
-          <div className="col-span-2 flex justify-end">
-            <button className="bg-gray-300 text-gray-600 font-bold py-3 px-4 text-sm rounded-xl cursor-not-allowed shadow-md">
-              Bid Tdk Perlu
-            </button>
-          </div>
-        </div>
-
-        {/* Card 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-gradient-to-r from-red-50 to-red-100 p-6 rounded-2xl shadow-xl transition-all duration-500 transform hover:scale-105 border-l-8 border-red-500">
-          <div className="col-span-3 flex items-center gap-4">
-            <Image src="/images/products/car2.jpg" alt="Honda Brio" width={80} height={60} className="rounded-xl object-cover shadow-md" />
-            <div>
-              <h3 className="text-lg font-bold text-[#0138C9]">Honda Brio 2021</h3>
-              <p className="text-sm text-gray-600 font-medium">Manual</p>
-            </div>
-          </div>
-
-          <div className="col-span-2 text-center">
-            <p className="text-lg font-bold text-red-600">Rp 125.000.000</p>
-          </div>
-
-          <div className="col-span-2 text-center">
-            <p className="text-lg font-bold text-gray-600">Rp 120.000.000</p>
-            <span className="text-xs text-red-600 font-bold bg-red-100 px-2 py-1 rounded-full">Anda Dikalahkan!</span>
-          </div>
-
-          <div className="col-span-3 text-center">
-            <div className="bg-gradient-to-r from-red-500 to-red-600 text-white font-bold py-2 px-4 rounded-full text-sm inline-block animate-pulse shadow-md">
-              Sisa 00:45:12
-            </div>
-            <p className="text-xs text-red-700 mt-2 font-semibold">Tawaran Baru Dibutuhkan!</p>
-          </div>
-
-          <div className="col-span-2 flex justify-end">
-            <button className="bg-gradient-to-r from-[#ABD905] to-[#8BC34A] text-[#0138C9] font-bold py-3 px-4 text-sm rounded-xl hover:from-[#8BC34A] hover:to-[#ABD905] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Naikkan Bid
-            </button>
-          </div>
-        </div>
-
-        {/* Card 3 */}
-        <div className="grid grid-cols-1 md:grid-cols-12 items-center bg-gradient-to-r from-green-100 to-green-200 p-6 rounded-2xl shadow-xl transition-all duration-500 transform hover:scale-105 border-l-8 border-green-700">
-          <div className="col-span-3 flex items-center gap-4">
-            <Image src="/images/products/car3.jpg" alt="Suzuki Ertiga" width={80} height={60} className="rounded-xl object-cover shadow-md" />
-            <div>
-              <h3 className="text-lg font-bold text-green-800">Suzuki Ertiga 2019</h3>
-              <p className="text-sm text-gray-600 font-medium">Automatic</p>
-            </div>
-          </div>
-
-          <div className="col-span-2 text-center">
-            <p className="text-lg font-bold text-green-700">Rp 115.000.000</p>
-          </div>
-
-          <div className="col-span-2 text-center">
-            <p className="text-lg font-bold text-green-700">Rp 115.000.000</p>
-            <span className="text-xs text-green-700 font-bold bg-green-200 px-2 py-1 rounded-full">Bid Final Anda</span>
-          </div>
-
-          <div className="col-span-3 text-center">
-            <div className="bg-gradient-to-r from-green-700 to-green-800 text-white font-bold py-2 px-4 rounded-full text-sm inline-block shadow-md">
-              SELESAI
-            </div>
-            <p className="text-xs text-green-700 mt-2 font-bold">🎉 Anda Memenangkan Lelang!</p>
-          </div>
-
-          <div className="col-span-2 flex justify-end">
-            <button className="bg-gradient-to-r from-[#0138C9] to-[#0056b3] text-white font-bold py-3 px-4 text-sm rounded-xl hover:from-[#0056b3] hover:to-[#0138C9] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Lanjutkan ke Pembayaran
-            </button>
-          </div>
-        </div>
-
+          ))
+        )}
       </div>
     </div>
 

@@ -14,7 +14,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
       <div className="flex-1 flex flex-col overflow-y-auto">
         <Header toggleSidebar={toggleSidebar} adminData={adminData} loading={loading} />
-        <main className="flex-1 p-6 sm:p-8">{children}</main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );

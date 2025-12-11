@@ -30,6 +30,26 @@ export type Produk = $Result.DefaultSelection<Prisma.$ProdukPayload>
 export type Bid = $Result.DefaultSelection<Prisma.$BidPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Kategori: {
+  SEMUA: 'SEMUA',
+  RAMAI: 'RAMAI',
+  SEGERA: 'SEGERA',
+  BARU: 'BARU',
+  DIBAWAH100: 'DIBAWAH100'
+};
+
+export type Kategori = (typeof Kategori)[keyof typeof Kategori]
+
+}
+
+export type Kategori = $Enums.Kategori
+
+export const Kategori: typeof $Enums.Kategori
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -2221,13 +2241,13 @@ export namespace Prisma {
     harga_awal: number | null
     deskripsi: string | null
     image_url: string | null
-    kategori: string | null
     merk_mobil: string | null
     tipe_mobil: string | null
     transmisi: string | null
     jumlah_seat: number | null
     tahun: number | null
     kilometer: number | null
+    kategori: $Enums.Kategori | null
     createdAt: Date | null
   }
 
@@ -2238,13 +2258,13 @@ export namespace Prisma {
     harga_awal: number | null
     deskripsi: string | null
     image_url: string | null
-    kategori: string | null
     merk_mobil: string | null
     tipe_mobil: string | null
     transmisi: string | null
     jumlah_seat: number | null
     tahun: number | null
     kilometer: number | null
+    kategori: $Enums.Kategori | null
     createdAt: Date | null
   }
 
@@ -2255,13 +2275,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: number
     image_url: number
-    kategori: number
     merk_mobil: number
     tipe_mobil: number
     transmisi: number
     jumlah_seat: number
     tahun: number
     kilometer: number
+    kategori: number
     createdAt: number
     _all: number
   }
@@ -2288,13 +2308,13 @@ export namespace Prisma {
     harga_awal?: true
     deskripsi?: true
     image_url?: true
-    kategori?: true
     merk_mobil?: true
     tipe_mobil?: true
     transmisi?: true
     jumlah_seat?: true
     tahun?: true
     kilometer?: true
+    kategori?: true
     createdAt?: true
   }
 
@@ -2305,13 +2325,13 @@ export namespace Prisma {
     harga_awal?: true
     deskripsi?: true
     image_url?: true
-    kategori?: true
     merk_mobil?: true
     tipe_mobil?: true
     transmisi?: true
     jumlah_seat?: true
     tahun?: true
     kilometer?: true
+    kategori?: true
     createdAt?: true
   }
 
@@ -2322,13 +2342,13 @@ export namespace Prisma {
     harga_awal?: true
     deskripsi?: true
     image_url?: true
-    kategori?: true
     merk_mobil?: true
     tipe_mobil?: true
     transmisi?: true
     jumlah_seat?: true
     tahun?: true
     kilometer?: true
+    kategori?: true
     createdAt?: true
     _all?: true
   }
@@ -2426,13 +2446,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: string
     image_url: string | null
-    kategori: string | null
     merk_mobil: string | null
     tipe_mobil: string | null
     transmisi: string | null
     jumlah_seat: number | null
     tahun: number | null
     kilometer: number | null
+    kategori: $Enums.Kategori
     createdAt: Date
     _count: ProdukCountAggregateOutputType | null
     _avg: ProdukAvgAggregateOutputType | null
@@ -2462,13 +2482,13 @@ export namespace Prisma {
     harga_awal?: boolean
     deskripsi?: boolean
     image_url?: boolean
-    kategori?: boolean
     merk_mobil?: boolean
     tipe_mobil?: boolean
     transmisi?: boolean
     jumlah_seat?: boolean
     tahun?: boolean
     kilometer?: boolean
+    kategori?: boolean
     createdAt?: boolean
     bids?: boolean | Produk$bidsArgs<ExtArgs>
     _count?: boolean | ProdukCountOutputTypeDefaultArgs<ExtArgs>
@@ -2481,13 +2501,13 @@ export namespace Prisma {
     harga_awal?: boolean
     deskripsi?: boolean
     image_url?: boolean
-    kategori?: boolean
     merk_mobil?: boolean
     tipe_mobil?: boolean
     transmisi?: boolean
     jumlah_seat?: boolean
     tahun?: boolean
     kilometer?: boolean
+    kategori?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["produk"]>
 
@@ -2498,13 +2518,13 @@ export namespace Prisma {
     harga_awal?: boolean
     deskripsi?: boolean
     image_url?: boolean
-    kategori?: boolean
     merk_mobil?: boolean
     tipe_mobil?: boolean
     transmisi?: boolean
     jumlah_seat?: boolean
     tahun?: boolean
     kilometer?: boolean
+    kategori?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["produk"]>
 
@@ -2515,17 +2535,17 @@ export namespace Prisma {
     harga_awal?: boolean
     deskripsi?: boolean
     image_url?: boolean
-    kategori?: boolean
     merk_mobil?: boolean
     tipe_mobil?: boolean
     transmisi?: boolean
     jumlah_seat?: boolean
     tahun?: boolean
     kilometer?: boolean
+    kategori?: boolean
     createdAt?: boolean
   }
 
-  export type ProdukOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama_barang" | "tanggal" | "harga_awal" | "deskripsi" | "image_url" | "kategori" | "merk_mobil" | "tipe_mobil" | "transmisi" | "jumlah_seat" | "tahun" | "kilometer" | "createdAt", ExtArgs["result"]["produk"]>
+  export type ProdukOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama_barang" | "tanggal" | "harga_awal" | "deskripsi" | "image_url" | "merk_mobil" | "tipe_mobil" | "transmisi" | "jumlah_seat" | "tahun" | "kilometer" | "kategori" | "createdAt", ExtArgs["result"]["produk"]>
   export type ProdukInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bids?: boolean | Produk$bidsArgs<ExtArgs>
     _count?: boolean | ProdukCountOutputTypeDefaultArgs<ExtArgs>
@@ -2545,13 +2565,13 @@ export namespace Prisma {
       harga_awal: number
       deskripsi: string
       image_url: string | null
-      kategori: string | null
       merk_mobil: string | null
       tipe_mobil: string | null
       transmisi: string | null
       jumlah_seat: number | null
       tahun: number | null
       kilometer: number | null
+      kategori: $Enums.Kategori
       createdAt: Date
     }, ExtArgs["result"]["produk"]>
     composites: {}
@@ -2983,13 +3003,13 @@ export namespace Prisma {
     readonly harga_awal: FieldRef<"Produk", 'Int'>
     readonly deskripsi: FieldRef<"Produk", 'String'>
     readonly image_url: FieldRef<"Produk", 'String'>
-    readonly kategori: FieldRef<"Produk", 'String'>
     readonly merk_mobil: FieldRef<"Produk", 'String'>
     readonly tipe_mobil: FieldRef<"Produk", 'String'>
     readonly transmisi: FieldRef<"Produk", 'String'>
     readonly jumlah_seat: FieldRef<"Produk", 'Int'>
     readonly tahun: FieldRef<"Produk", 'Int'>
     readonly kilometer: FieldRef<"Produk", 'Int'>
+    readonly kategori: FieldRef<"Produk", 'Kategori'>
     readonly createdAt: FieldRef<"Produk", 'DateTime'>
   }
     
@@ -4567,13 +4587,13 @@ export namespace Prisma {
     harga_awal: 'harga_awal',
     deskripsi: 'deskripsi',
     image_url: 'image_url',
-    kategori: 'kategori',
     merk_mobil: 'merk_mobil',
     tipe_mobil: 'tipe_mobil',
     transmisi: 'transmisi',
     jumlah_seat: 'jumlah_seat',
     tahun: 'tahun',
     kilometer: 'kilometer',
+    kategori: 'kategori',
     createdAt: 'createdAt'
   };
 
@@ -4664,6 +4684,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Kategori'
+   */
+  export type EnumKategoriFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Kategori'>
+    
+
+
+  /**
+   * Reference to a field of type 'Kategori[]'
+   */
+  export type ListEnumKategoriFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Kategori[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4750,13 +4784,13 @@ export namespace Prisma {
     harga_awal?: IntFilter<"Produk"> | number
     deskripsi?: StringFilter<"Produk"> | string
     image_url?: StringNullableFilter<"Produk"> | string | null
-    kategori?: StringNullableFilter<"Produk"> | string | null
     merk_mobil?: StringNullableFilter<"Produk"> | string | null
     tipe_mobil?: StringNullableFilter<"Produk"> | string | null
     transmisi?: StringNullableFilter<"Produk"> | string | null
     jumlah_seat?: IntNullableFilter<"Produk"> | number | null
     tahun?: IntNullableFilter<"Produk"> | number | null
     kilometer?: IntNullableFilter<"Produk"> | number | null
+    kategori?: EnumKategoriFilter<"Produk"> | $Enums.Kategori
     createdAt?: DateTimeFilter<"Produk"> | Date | string
     bids?: BidListRelationFilter
   }
@@ -4768,13 +4802,13 @@ export namespace Prisma {
     harga_awal?: SortOrder
     deskripsi?: SortOrder
     image_url?: SortOrderInput | SortOrder
-    kategori?: SortOrderInput | SortOrder
     merk_mobil?: SortOrderInput | SortOrder
     tipe_mobil?: SortOrderInput | SortOrder
     transmisi?: SortOrderInput | SortOrder
     jumlah_seat?: SortOrderInput | SortOrder
     tahun?: SortOrderInput | SortOrder
     kilometer?: SortOrderInput | SortOrder
+    kategori?: SortOrder
     createdAt?: SortOrder
     bids?: BidOrderByRelationAggregateInput
   }
@@ -4789,13 +4823,13 @@ export namespace Prisma {
     harga_awal?: IntFilter<"Produk"> | number
     deskripsi?: StringFilter<"Produk"> | string
     image_url?: StringNullableFilter<"Produk"> | string | null
-    kategori?: StringNullableFilter<"Produk"> | string | null
     merk_mobil?: StringNullableFilter<"Produk"> | string | null
     tipe_mobil?: StringNullableFilter<"Produk"> | string | null
     transmisi?: StringNullableFilter<"Produk"> | string | null
     jumlah_seat?: IntNullableFilter<"Produk"> | number | null
     tahun?: IntNullableFilter<"Produk"> | number | null
     kilometer?: IntNullableFilter<"Produk"> | number | null
+    kategori?: EnumKategoriFilter<"Produk"> | $Enums.Kategori
     createdAt?: DateTimeFilter<"Produk"> | Date | string
     bids?: BidListRelationFilter
   }, "id">
@@ -4807,13 +4841,13 @@ export namespace Prisma {
     harga_awal?: SortOrder
     deskripsi?: SortOrder
     image_url?: SortOrderInput | SortOrder
-    kategori?: SortOrderInput | SortOrder
     merk_mobil?: SortOrderInput | SortOrder
     tipe_mobil?: SortOrderInput | SortOrder
     transmisi?: SortOrderInput | SortOrder
     jumlah_seat?: SortOrderInput | SortOrder
     tahun?: SortOrderInput | SortOrder
     kilometer?: SortOrderInput | SortOrder
+    kategori?: SortOrder
     createdAt?: SortOrder
     _count?: ProdukCountOrderByAggregateInput
     _avg?: ProdukAvgOrderByAggregateInput
@@ -4832,13 +4866,13 @@ export namespace Prisma {
     harga_awal?: IntWithAggregatesFilter<"Produk"> | number
     deskripsi?: StringWithAggregatesFilter<"Produk"> | string
     image_url?: StringNullableWithAggregatesFilter<"Produk"> | string | null
-    kategori?: StringNullableWithAggregatesFilter<"Produk"> | string | null
     merk_mobil?: StringNullableWithAggregatesFilter<"Produk"> | string | null
     tipe_mobil?: StringNullableWithAggregatesFilter<"Produk"> | string | null
     transmisi?: StringNullableWithAggregatesFilter<"Produk"> | string | null
     jumlah_seat?: IntNullableWithAggregatesFilter<"Produk"> | number | null
     tahun?: IntNullableWithAggregatesFilter<"Produk"> | number | null
     kilometer?: IntNullableWithAggregatesFilter<"Produk"> | number | null
+    kategori?: EnumKategoriWithAggregatesFilter<"Produk"> | $Enums.Kategori
     createdAt?: DateTimeWithAggregatesFilter<"Produk"> | Date | string
   }
 
@@ -4981,13 +5015,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: string
     image_url?: string | null
-    kategori?: string | null
     merk_mobil?: string | null
     tipe_mobil?: string | null
     transmisi?: string | null
     jumlah_seat?: number | null
     tahun?: number | null
     kilometer?: number | null
+    kategori?: $Enums.Kategori
     createdAt?: Date | string
     bids?: BidCreateNestedManyWithoutProdukInput
   }
@@ -4999,13 +5033,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: string
     image_url?: string | null
-    kategori?: string | null
     merk_mobil?: string | null
     tipe_mobil?: string | null
     transmisi?: string | null
     jumlah_seat?: number | null
     tahun?: number | null
     kilometer?: number | null
+    kategori?: $Enums.Kategori
     createdAt?: Date | string
     bids?: BidUncheckedCreateNestedManyWithoutProdukInput
   }
@@ -5017,13 +5051,13 @@ export namespace Prisma {
     harga_awal?: IntFieldUpdateOperationsInput | number
     deskripsi?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    kategori?: NullableStringFieldUpdateOperationsInput | string | null
     merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     transmisi?: NullableStringFieldUpdateOperationsInput | string | null
     jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bids?: BidUpdateManyWithoutProdukNestedInput
   }
@@ -5035,13 +5069,13 @@ export namespace Prisma {
     harga_awal?: IntFieldUpdateOperationsInput | number
     deskripsi?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    kategori?: NullableStringFieldUpdateOperationsInput | string | null
     merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     transmisi?: NullableStringFieldUpdateOperationsInput | string | null
     jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bids?: BidUncheckedUpdateManyWithoutProdukNestedInput
   }
@@ -5053,13 +5087,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: string
     image_url?: string | null
-    kategori?: string | null
     merk_mobil?: string | null
     tipe_mobil?: string | null
     transmisi?: string | null
     jumlah_seat?: number | null
     tahun?: number | null
     kilometer?: number | null
+    kategori?: $Enums.Kategori
     createdAt?: Date | string
   }
 
@@ -5070,13 +5104,13 @@ export namespace Prisma {
     harga_awal?: IntFieldUpdateOperationsInput | number
     deskripsi?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    kategori?: NullableStringFieldUpdateOperationsInput | string | null
     merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     transmisi?: NullableStringFieldUpdateOperationsInput | string | null
     jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5087,13 +5121,13 @@ export namespace Prisma {
     harga_awal?: IntFieldUpdateOperationsInput | number
     deskripsi?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    kategori?: NullableStringFieldUpdateOperationsInput | string | null
     merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     transmisi?: NullableStringFieldUpdateOperationsInput | string | null
     jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5290,6 +5324,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumKategoriFilter<$PrismaModel = never> = {
+    equals?: $Enums.Kategori | EnumKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumKategoriFilter<$PrismaModel> | $Enums.Kategori
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -5302,13 +5343,13 @@ export namespace Prisma {
     harga_awal?: SortOrder
     deskripsi?: SortOrder
     image_url?: SortOrder
-    kategori?: SortOrder
     merk_mobil?: SortOrder
     tipe_mobil?: SortOrder
     transmisi?: SortOrder
     jumlah_seat?: SortOrder
     tahun?: SortOrder
     kilometer?: SortOrder
+    kategori?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5326,13 +5367,13 @@ export namespace Prisma {
     harga_awal?: SortOrder
     deskripsi?: SortOrder
     image_url?: SortOrder
-    kategori?: SortOrder
     merk_mobil?: SortOrder
     tipe_mobil?: SortOrder
     transmisi?: SortOrder
     jumlah_seat?: SortOrder
     tahun?: SortOrder
     kilometer?: SortOrder
+    kategori?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5343,13 +5384,13 @@ export namespace Prisma {
     harga_awal?: SortOrder
     deskripsi?: SortOrder
     image_url?: SortOrder
-    kategori?: SortOrder
     merk_mobil?: SortOrder
     tipe_mobil?: SortOrder
     transmisi?: SortOrder
     jumlah_seat?: SortOrder
     tahun?: SortOrder
     kilometer?: SortOrder
+    kategori?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5408,6 +5449,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumKategoriWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Kategori | EnumKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumKategoriWithAggregatesFilter<$PrismaModel> | $Enums.Kategori
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKategoriFilter<$PrismaModel>
+    _max?: NestedEnumKategoriFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -5537,6 +5588,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumKategoriFieldUpdateOperationsInput = {
+    set?: $Enums.Kategori
   }
 
   export type BidUpdateManyWithoutProdukNestedInput = {
@@ -5687,6 +5742,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumKategoriFilter<$PrismaModel = never> = {
+    equals?: $Enums.Kategori | EnumKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumKategoriFilter<$PrismaModel> | $Enums.Kategori
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -5756,6 +5818,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumKategoriWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Kategori | EnumKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Kategori[] | ListEnumKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumKategoriWithAggregatesFilter<$PrismaModel> | $Enums.Kategori
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKategoriFilter<$PrismaModel>
+    _max?: NestedEnumKategoriFilter<$PrismaModel>
   }
 
   export type BidCreateWithoutUserInput = {
@@ -5884,13 +5956,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: string
     image_url?: string | null
-    kategori?: string | null
     merk_mobil?: string | null
     tipe_mobil?: string | null
     transmisi?: string | null
     jumlah_seat?: number | null
     tahun?: number | null
     kilometer?: number | null
+    kategori?: $Enums.Kategori
     createdAt?: Date | string
   }
 
@@ -5901,13 +5973,13 @@ export namespace Prisma {
     harga_awal: number
     deskripsi: string
     image_url?: string | null
-    kategori?: string | null
     merk_mobil?: string | null
     tipe_mobil?: string | null
     transmisi?: string | null
     jumlah_seat?: number | null
     tahun?: number | null
     kilometer?: number | null
+    kategori?: $Enums.Kategori
     createdAt?: Date | string
   }
 
@@ -5963,13 +6035,13 @@ export namespace Prisma {
     harga_awal?: IntFieldUpdateOperationsInput | number
     deskripsi?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    kategori?: NullableStringFieldUpdateOperationsInput | string | null
     merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     transmisi?: NullableStringFieldUpdateOperationsInput | string | null
     jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5980,13 +6052,13 @@ export namespace Prisma {
     harga_awal?: IntFieldUpdateOperationsInput | number
     deskripsi?: StringFieldUpdateOperationsInput | string
     image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    kategori?: NullableStringFieldUpdateOperationsInput | string | null
     merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
     transmisi?: NullableStringFieldUpdateOperationsInput | string | null
     jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
