@@ -31,9 +31,7 @@ export default function MyBids() {
       const res = await fetch('/api/bids');
       if (res.ok) {
         const data = await res.json();
-        // Filter to show only approved bids
-        const approvedBids = data.filter((bid: Bid) => bid.status === 'approved');
-        setBids(approvedBids);
+        setBids(data);
       } else if (res.status === 401) {
         // User not authenticated, redirect to login
         window.location.href = '/login';
@@ -71,42 +69,57 @@ export default function MyBids() {
           </div>
         ) : bids.length === 0 ? (
           <div className="text-center py-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8">
-            <p className="text-gray-600 text-lg font-semibold">Anda belum memiliki bid yang di-approve.</p>
-            <p className="text-gray-500 mt-2">Tunggu admin untuk meng-approve bid Anda.</p>
+            <p className="text-gray-600 text-lg font-semibold">Anda belum memiliki bid.</p>
+            <p className="text-gray-500 mt-2">Ajukan tawaran pada mobil yang Anda minati.</p>
           </div>
         ) : (
-          bids.map((bid) => (
-            <div key={bid.id} className="grid grid-cols-1 md:grid-cols-12 items-center bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-2xl shadow-xl transition-all duration-500 transform hover:scale-105 border-l-8 border-green-500">
-              <div className="col-span-3 flex items-center gap-4">
-                <div>
-                  <h3 className="text-lg font-bold text-[#0138C9]">{bid.produk.nama_barang}</h3>
-                  <p className="text-sm text-gray-600 font-medium">Harga Awal: Rp {bid.produk.harga_awal.toLocaleString('id-ID')}</p>
+          bids.map((bid) => {
+            let statusColor = "";
+            let statusText = "";
+            if (bid.status === "approved") {
+              statusColor = "from-green-500 to-green-600 text-white";
+              statusText = "DISETUJUI";
+            } else if (bid.status === "rejected") {
+              statusColor = "from-red-500 to-red-600 text-white";
+              statusText = "DITOLAK";
+            } else {
+              statusColor = "from-yellow-400 to-yellow-500 text-yellow-900";
+              statusText = "MENUNGGU";
+            }
+            return (
+              <div
+                key={bid.id}
+                className={`flex flex-col md:flex-row items-center gap-4 bg-gradient-to-r ${statusColor.includes('green') ? 'from-green-50 to-green-100' : statusColor.includes('red') ? 'from-red-50 to-red-100' : 'from-yellow-50 to-yellow-100'} p-5 md:p-6 rounded-2xl shadow-lg transition-all duration-300 border-l-8 ${statusColor.includes('green') ? 'border-green-500' : statusColor.includes('red') ? 'border-red-500' : 'border-yellow-400'} hover:scale-[1.01]`}
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col md:flex-row md:items-center md:gap-4">
+                    <div className="flex-1">
+                      <h3 className="text-base md:text-lg font-bold text-[#0138C9] truncate">{bid.produk.nama_barang}</h3>
+                      <div className="flex flex-wrap gap-2 mt-1 text-xs text-gray-600 font-medium">
+                        <span>Harga Awal: Rp {bid.produk.harga_awal.toLocaleString('id-ID')}</span>
+                        <span className="hidden md:inline">|</span>
+                        <span>Bid Anda: <span className="text-[#0138C9] font-bold">Rp {bid.bidAmount.toLocaleString('id-ID')}</span></span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-start md:items-center gap-1 mt-2 md:mt-0">
+                      <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full font-medium">{new Date(bid.createdAt).toLocaleDateString('id-ID')}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center min-w-[120px]">
+                  <div className={`bg-gradient-to-r ${statusColor} font-bold py-1.5 px-4 rounded-full text-xs md:text-sm inline-block shadow-md mb-1`}>{statusText}</div>
+                  <span className={`text-xs font-semibold text-center ${bid.status === 'approved' ? 'text-green-700' : bid.status === 'rejected' ? 'text-red-700' : 'text-yellow-700'}`}>
+                    {bid.status === 'approved' ? '✓ Disetujui Admin' : bid.status === 'rejected' ? '✗ Ditolak Admin' : '⏳ Menunggu Persetujuan'}
+                  </span>
+                </div>
+                <div className="flex flex-col items-end min-w-[100px]">
+                  <button className="bg-gradient-to-r from-[#0138C9] to-[#0056b3] text-white font-bold py-2 px-4 text-xs md:text-sm rounded-xl hover:from-[#0056b3] hover:to-[#0138C9] transition-all duration-300 shadow-md hover:shadow-lg">
+                    Lanjutkan
+                  </button>
                 </div>
               </div>
-
-              <div className="col-span-2 text-center">
-                <p className="text-lg font-bold text-green-600">Rp {bid.produk.harga_awal.toLocaleString('id-ID')}</p>
-              </div>
-
-              <div className="col-span-2 text-center">
-                <p className="text-lg font-bold text-[#0138C9]">Rp {bid.bidAmount.toLocaleString('id-ID')}</p>
-                <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full font-medium">Bid Anda</span>
-              </div>
-
-              <div className="col-span-3 text-center">
-                <div className="bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-2 px-4 rounded-full text-sm inline-block shadow-md">
-                  DISETUJUI
-                </div>
-                <p className="text-xs text-green-700 mt-2 font-semibold">✓ Bid Anda Telah Disetujui Admin</p>
-              </div>
-
-              <div className="col-span-2 flex justify-end">
-                <button className="bg-gradient-to-r from-[#0138C9] to-[#0056b3] text-white font-bold py-3 px-4 text-sm rounded-xl hover:from-[#0056b3] hover:to-[#0138C9] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  Lanjutkan
-                </button>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>

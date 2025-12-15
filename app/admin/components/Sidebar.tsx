@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-    Home,        // Dashboard Utama
-    Users,       // Manajemen Pengguna
-    Package,     // Pengelolaan Produk
-    BarChart2,   // Laporan Analitik
-    LogOut,      // Keluar/Logout
-    Menu,        // Opsional: Jika Anda ingin menambahkan ikon Menu
+    Home,        
+    Users,       
+    Package,     
+    BarChart2,   
+    LogOut,      
+    Menu,
+    FileClock        
 } from 'lucide-react';
 
-// db harus didefinisikan di tempat lain (misalnya, di file konfigurasi Firebase Anda)
 declare const signOut: any;
 declare const auth: any;
 
@@ -40,6 +40,7 @@ export function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         { name: 'Laporan Analitik', href: '/admin/laporan', icon: BarChart2 },
         { name: 'Manajemen Petugas', href: '/admin/pengguna', icon: Users },
         { name: 'Pengelolaan Produk', href: '/admin/produk', icon: Package },
+        { name: 'Kelola Lelang', href: '/admin/bids', icon: FileClock }, 
     ];
 
     const sidebarClass = `fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl transform transition-transform duration-300 ease-in-out backdrop-blur-sm border-r border-slate-700/50

@@ -1,11 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [user, setUser] = useState<{ name: string } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/me')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data && data.name) setUser({ name: data.name });
+        else setUser(null);
+      })
+      .catch(() => setUser(null));
+  }, []);
 
   const toggleDropdown = (name: string) => {
     setOpenDropdown(openDropdown === name ? null : name);
@@ -67,11 +79,15 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* DAFTAR BUTTON (DESKTOP) */}
+      {/* USER GREETING or DAFTAR BUTTON (DESKTOP) */}
       <div className="hidden md:inline-block">
-        <Link href="/register" className="text-white border border-white rounded-full px-6 py-1 hover:bg-white hover:text-[#0138C9] transition">
-          Daftar
-        </Link>
+        {user ? (
+          <span className="text-white font-semibold px-6">Hi, {user.name}</span>
+        ) : (
+          <Link href="/register" className="text-white border border-white rounded-full px-6 py-1 hover:bg-white hover:text-[#0138C9] transition">
+            Daftar
+          </Link>
+        )}
       </div>
 
       {/* MOBILE BUTTON */}
@@ -97,7 +113,7 @@ export default function Navbar() {
               </button>
               {openDropdown === "jelajahi" && (
                 <ul className="bg-blue-900/50">
-                  <li><Link href="/cars" className="block px-10 py-2 hover:bg-blue-900">Semua Mobil</Link></li>
+                  <li><Link href="/jelajahi" className="block px-10 py-2 hover:bg-blue-900">Semua Mobil</Link></li>
                   <li><a href="#sedang-ramai" className="block px-10 py-2 hover:bg-blue-900">Sedang Ramai</a></li>
                   <li><a href="#segera-berakhir" className="block px-10 py-2 hover:bg-blue-900">Segera Berakhir</a></li>
                   <li><a href="#dibawah-100-juta" className="block px-10 py-2 hover:bg-blue-900">Di Bawah 100 Juta</a></li>
@@ -135,10 +151,15 @@ export default function Navbar() {
               )}
             </li>
 
+            {/* USER GREETING or DAFTAR/MASUK (MOBILE) */}
             <li className="p-4">
-              <Link href="/register" className="block text-center bg-white text-[#0138C9] font-bold rounded-full py-2">
-                Daftar / Masuk
-              </Link>
+              {user ? (
+                <span className="block text-center bg-white/10 text-white font-bold rounded-full py-2">Hi, {user.name}</span>
+              ) : (
+                <Link href="/register" className="block text-center bg-white text-[#0138C9] font-bold rounded-full py-2">
+                  Daftar / Masuk
+                </Link>
+              )}
             </li>
           </ul>
         </div>

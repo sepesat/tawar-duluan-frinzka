@@ -14,6 +14,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Watchlist
+ * 
+ */
+export type Watchlist = $Result.DefaultSelection<Prisma.$WatchlistPayload>
+/**
+ * Model Setting
+ * 
+ */
+export type Setting = $Result.DefaultSelection<Prisma.$SettingPayload>
+/**
  * Model User
  * 
  */
@@ -56,8 +66,8 @@ export const Kategori: typeof $Enums.Kategori
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Watchlists
+ * const watchlists = await prisma.watchlist.findMany()
  * ```
  *
  *
@@ -77,8 +87,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Watchlists
+   * const watchlists = await prisma.watchlist.findMany()
    * ```
    *
    *
@@ -167,6 +177,26 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.watchlist`: Exposes CRUD operations for the **Watchlist** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Watchlists
+    * const watchlists = await prisma.watchlist.findMany()
+    * ```
+    */
+  get watchlist(): Prisma.WatchlistDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.setting`: Exposes CRUD operations for the **Setting** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Settings
+    * const settings = await prisma.setting.findMany()
+    * ```
+    */
+  get setting(): Prisma.SettingDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -629,6 +659,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Watchlist: 'Watchlist',
+    Setting: 'Setting',
     User: 'User',
     Produk: 'Produk',
     Bid: 'Bid'
@@ -647,10 +679,158 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "produk" | "bid"
+      modelProps: "watchlist" | "setting" | "user" | "produk" | "bid"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Watchlist: {
+        payload: Prisma.$WatchlistPayload<ExtArgs>
+        fields: Prisma.WatchlistFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WatchlistFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WatchlistFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>
+          }
+          findFirst: {
+            args: Prisma.WatchlistFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WatchlistFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>
+          }
+          findMany: {
+            args: Prisma.WatchlistFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>[]
+          }
+          create: {
+            args: Prisma.WatchlistCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>
+          }
+          createMany: {
+            args: Prisma.WatchlistCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WatchlistCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>[]
+          }
+          delete: {
+            args: Prisma.WatchlistDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>
+          }
+          update: {
+            args: Prisma.WatchlistUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>
+          }
+          deleteMany: {
+            args: Prisma.WatchlistDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WatchlistUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WatchlistUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>[]
+          }
+          upsert: {
+            args: Prisma.WatchlistUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WatchlistPayload>
+          }
+          aggregate: {
+            args: Prisma.WatchlistAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWatchlist>
+          }
+          groupBy: {
+            args: Prisma.WatchlistGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WatchlistGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WatchlistCountArgs<ExtArgs>
+            result: $Utils.Optional<WatchlistCountAggregateOutputType> | number
+          }
+        }
+      }
+      Setting: {
+        payload: Prisma.$SettingPayload<ExtArgs>
+        fields: Prisma.SettingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SettingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SettingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
+          }
+          findFirst: {
+            args: Prisma.SettingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SettingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
+          }
+          findMany: {
+            args: Prisma.SettingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>[]
+          }
+          create: {
+            args: Prisma.SettingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
+          }
+          createMany: {
+            args: Prisma.SettingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SettingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>[]
+          }
+          delete: {
+            args: Prisma.SettingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
+          }
+          update: {
+            args: Prisma.SettingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
+          }
+          deleteMany: {
+            args: Prisma.SettingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SettingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SettingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>[]
+          }
+          upsert: {
+            args: Prisma.SettingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
+          }
+          aggregate: {
+            args: Prisma.SettingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSetting>
+          }
+          groupBy: {
+            args: Prisma.SettingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SettingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SettingCountArgs<ExtArgs>
+            result: $Utils.Optional<SettingCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -981,6 +1161,8 @@ export namespace Prisma {
     comments?: runtime.SqlCommenterPlugin[]
   }
   export type GlobalOmitConfig = {
+    watchlist?: WatchlistOmit
+    setting?: SettingOmit
     user?: UserOmit
     produk?: ProdukOmit
     bid?: BidOmit
@@ -1065,10 +1247,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     bids: number
+    watchlists: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bids?: boolean | UserCountOutputTypeCountBidsArgs
+    watchlists?: boolean | UserCountOutputTypeCountWatchlistsArgs
   }
 
   // Custom InputTypes
@@ -1089,6 +1273,13 @@ export namespace Prisma {
     where?: BidWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWatchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WatchlistWhereInput
+  }
+
 
   /**
    * Count Type ProdukCountOutputType
@@ -1096,10 +1287,12 @@ export namespace Prisma {
 
   export type ProdukCountOutputType = {
     bids: number
+    watchlists: number
   }
 
   export type ProdukCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bids?: boolean | ProdukCountOutputTypeCountBidsArgs
+    watchlists?: boolean | ProdukCountOutputTypeCountWatchlistsArgs
   }
 
   // Custom InputTypes
@@ -1120,10 +1313,2026 @@ export namespace Prisma {
     where?: BidWhereInput
   }
 
+  /**
+   * ProdukCountOutputType without action
+   */
+  export type ProdukCountOutputTypeCountWatchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WatchlistWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model Watchlist
+   */
+
+  export type AggregateWatchlist = {
+    _count: WatchlistCountAggregateOutputType | null
+    _min: WatchlistMinAggregateOutputType | null
+    _max: WatchlistMaxAggregateOutputType | null
+  }
+
+  export type WatchlistMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    produkId: string | null
+    createdAt: Date | null
+  }
+
+  export type WatchlistMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    produkId: string | null
+    createdAt: Date | null
+  }
+
+  export type WatchlistCountAggregateOutputType = {
+    id: number
+    userId: number
+    produkId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type WatchlistMinAggregateInputType = {
+    id?: true
+    userId?: true
+    produkId?: true
+    createdAt?: true
+  }
+
+  export type WatchlistMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    produkId?: true
+    createdAt?: true
+  }
+
+  export type WatchlistCountAggregateInputType = {
+    id?: true
+    userId?: true
+    produkId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type WatchlistAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Watchlist to aggregate.
+     */
+    where?: WatchlistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Watchlists to fetch.
+     */
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WatchlistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Watchlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Watchlists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Watchlists
+    **/
+    _count?: true | WatchlistCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WatchlistMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WatchlistMaxAggregateInputType
+  }
+
+  export type GetWatchlistAggregateType<T extends WatchlistAggregateArgs> = {
+        [P in keyof T & keyof AggregateWatchlist]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWatchlist[P]>
+      : GetScalarType<T[P], AggregateWatchlist[P]>
+  }
+
+
+
+
+  export type WatchlistGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WatchlistWhereInput
+    orderBy?: WatchlistOrderByWithAggregationInput | WatchlistOrderByWithAggregationInput[]
+    by: WatchlistScalarFieldEnum[] | WatchlistScalarFieldEnum
+    having?: WatchlistScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WatchlistCountAggregateInputType | true
+    _min?: WatchlistMinAggregateInputType
+    _max?: WatchlistMaxAggregateInputType
+  }
+
+  export type WatchlistGroupByOutputType = {
+    id: string
+    userId: string
+    produkId: string
+    createdAt: Date
+    _count: WatchlistCountAggregateOutputType | null
+    _min: WatchlistMinAggregateOutputType | null
+    _max: WatchlistMaxAggregateOutputType | null
+  }
+
+  type GetWatchlistGroupByPayload<T extends WatchlistGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WatchlistGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WatchlistGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WatchlistGroupByOutputType[P]>
+            : GetScalarType<T[P], WatchlistGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WatchlistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    produkId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["watchlist"]>
+
+  export type WatchlistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    produkId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["watchlist"]>
+
+  export type WatchlistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    produkId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["watchlist"]>
+
+  export type WatchlistSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    produkId?: boolean
+    createdAt?: boolean
+  }
+
+  export type WatchlistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "produkId" | "createdAt", ExtArgs["result"]["watchlist"]>
+  export type WatchlistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }
+  export type WatchlistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }
+  export type WatchlistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }
+
+  export type $WatchlistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Watchlist"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      produk: Prisma.$ProdukPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      produkId: string
+      createdAt: Date
+    }, ExtArgs["result"]["watchlist"]>
+    composites: {}
+  }
+
+  type WatchlistGetPayload<S extends boolean | null | undefined | WatchlistDefaultArgs> = $Result.GetResult<Prisma.$WatchlistPayload, S>
+
+  type WatchlistCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WatchlistFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WatchlistCountAggregateInputType | true
+    }
+
+  export interface WatchlistDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Watchlist'], meta: { name: 'Watchlist' } }
+    /**
+     * Find zero or one Watchlist that matches the filter.
+     * @param {WatchlistFindUniqueArgs} args - Arguments to find a Watchlist
+     * @example
+     * // Get one Watchlist
+     * const watchlist = await prisma.watchlist.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WatchlistFindUniqueArgs>(args: SelectSubset<T, WatchlistFindUniqueArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Watchlist that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WatchlistFindUniqueOrThrowArgs} args - Arguments to find a Watchlist
+     * @example
+     * // Get one Watchlist
+     * const watchlist = await prisma.watchlist.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WatchlistFindUniqueOrThrowArgs>(args: SelectSubset<T, WatchlistFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Watchlist that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistFindFirstArgs} args - Arguments to find a Watchlist
+     * @example
+     * // Get one Watchlist
+     * const watchlist = await prisma.watchlist.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WatchlistFindFirstArgs>(args?: SelectSubset<T, WatchlistFindFirstArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Watchlist that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistFindFirstOrThrowArgs} args - Arguments to find a Watchlist
+     * @example
+     * // Get one Watchlist
+     * const watchlist = await prisma.watchlist.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WatchlistFindFirstOrThrowArgs>(args?: SelectSubset<T, WatchlistFindFirstOrThrowArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Watchlists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Watchlists
+     * const watchlists = await prisma.watchlist.findMany()
+     * 
+     * // Get first 10 Watchlists
+     * const watchlists = await prisma.watchlist.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const watchlistWithIdOnly = await prisma.watchlist.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WatchlistFindManyArgs>(args?: SelectSubset<T, WatchlistFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Watchlist.
+     * @param {WatchlistCreateArgs} args - Arguments to create a Watchlist.
+     * @example
+     * // Create one Watchlist
+     * const Watchlist = await prisma.watchlist.create({
+     *   data: {
+     *     // ... data to create a Watchlist
+     *   }
+     * })
+     * 
+     */
+    create<T extends WatchlistCreateArgs>(args: SelectSubset<T, WatchlistCreateArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Watchlists.
+     * @param {WatchlistCreateManyArgs} args - Arguments to create many Watchlists.
+     * @example
+     * // Create many Watchlists
+     * const watchlist = await prisma.watchlist.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WatchlistCreateManyArgs>(args?: SelectSubset<T, WatchlistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Watchlists and returns the data saved in the database.
+     * @param {WatchlistCreateManyAndReturnArgs} args - Arguments to create many Watchlists.
+     * @example
+     * // Create many Watchlists
+     * const watchlist = await prisma.watchlist.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Watchlists and only return the `id`
+     * const watchlistWithIdOnly = await prisma.watchlist.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WatchlistCreateManyAndReturnArgs>(args?: SelectSubset<T, WatchlistCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Watchlist.
+     * @param {WatchlistDeleteArgs} args - Arguments to delete one Watchlist.
+     * @example
+     * // Delete one Watchlist
+     * const Watchlist = await prisma.watchlist.delete({
+     *   where: {
+     *     // ... filter to delete one Watchlist
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WatchlistDeleteArgs>(args: SelectSubset<T, WatchlistDeleteArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Watchlist.
+     * @param {WatchlistUpdateArgs} args - Arguments to update one Watchlist.
+     * @example
+     * // Update one Watchlist
+     * const watchlist = await prisma.watchlist.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WatchlistUpdateArgs>(args: SelectSubset<T, WatchlistUpdateArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Watchlists.
+     * @param {WatchlistDeleteManyArgs} args - Arguments to filter Watchlists to delete.
+     * @example
+     * // Delete a few Watchlists
+     * const { count } = await prisma.watchlist.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WatchlistDeleteManyArgs>(args?: SelectSubset<T, WatchlistDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Watchlists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Watchlists
+     * const watchlist = await prisma.watchlist.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WatchlistUpdateManyArgs>(args: SelectSubset<T, WatchlistUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Watchlists and returns the data updated in the database.
+     * @param {WatchlistUpdateManyAndReturnArgs} args - Arguments to update many Watchlists.
+     * @example
+     * // Update many Watchlists
+     * const watchlist = await prisma.watchlist.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Watchlists and only return the `id`
+     * const watchlistWithIdOnly = await prisma.watchlist.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WatchlistUpdateManyAndReturnArgs>(args: SelectSubset<T, WatchlistUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Watchlist.
+     * @param {WatchlistUpsertArgs} args - Arguments to update or create a Watchlist.
+     * @example
+     * // Update or create a Watchlist
+     * const watchlist = await prisma.watchlist.upsert({
+     *   create: {
+     *     // ... data to create a Watchlist
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Watchlist we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WatchlistUpsertArgs>(args: SelectSubset<T, WatchlistUpsertArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Watchlists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistCountArgs} args - Arguments to filter Watchlists to count.
+     * @example
+     * // Count the number of Watchlists
+     * const count = await prisma.watchlist.count({
+     *   where: {
+     *     // ... the filter for the Watchlists we want to count
+     *   }
+     * })
+    **/
+    count<T extends WatchlistCountArgs>(
+      args?: Subset<T, WatchlistCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WatchlistCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Watchlist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WatchlistAggregateArgs>(args: Subset<T, WatchlistAggregateArgs>): Prisma.PrismaPromise<GetWatchlistAggregateType<T>>
+
+    /**
+     * Group by Watchlist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WatchlistGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WatchlistGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WatchlistGroupByArgs['orderBy'] }
+        : { orderBy?: WatchlistGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WatchlistGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWatchlistGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Watchlist model
+   */
+  readonly fields: WatchlistFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Watchlist.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WatchlistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    produk<T extends ProdukDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProdukDefaultArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Watchlist model
+   */
+  interface WatchlistFieldRefs {
+    readonly id: FieldRef<"Watchlist", 'String'>
+    readonly userId: FieldRef<"Watchlist", 'String'>
+    readonly produkId: FieldRef<"Watchlist", 'String'>
+    readonly createdAt: FieldRef<"Watchlist", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Watchlist findUnique
+   */
+  export type WatchlistFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * Filter, which Watchlist to fetch.
+     */
+    where: WatchlistWhereUniqueInput
+  }
+
+  /**
+   * Watchlist findUniqueOrThrow
+   */
+  export type WatchlistFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * Filter, which Watchlist to fetch.
+     */
+    where: WatchlistWhereUniqueInput
+  }
+
+  /**
+   * Watchlist findFirst
+   */
+  export type WatchlistFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * Filter, which Watchlist to fetch.
+     */
+    where?: WatchlistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Watchlists to fetch.
+     */
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Watchlists.
+     */
+    cursor?: WatchlistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Watchlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Watchlists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Watchlists.
+     */
+    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
+  }
+
+  /**
+   * Watchlist findFirstOrThrow
+   */
+  export type WatchlistFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * Filter, which Watchlist to fetch.
+     */
+    where?: WatchlistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Watchlists to fetch.
+     */
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Watchlists.
+     */
+    cursor?: WatchlistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Watchlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Watchlists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Watchlists.
+     */
+    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
+  }
+
+  /**
+   * Watchlist findMany
+   */
+  export type WatchlistFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * Filter, which Watchlists to fetch.
+     */
+    where?: WatchlistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Watchlists to fetch.
+     */
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Watchlists.
+     */
+    cursor?: WatchlistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Watchlists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Watchlists.
+     */
+    skip?: number
+    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
+  }
+
+  /**
+   * Watchlist create
+   */
+  export type WatchlistCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Watchlist.
+     */
+    data: XOR<WatchlistCreateInput, WatchlistUncheckedCreateInput>
+  }
+
+  /**
+   * Watchlist createMany
+   */
+  export type WatchlistCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Watchlists.
+     */
+    data: WatchlistCreateManyInput | WatchlistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Watchlist createManyAndReturn
+   */
+  export type WatchlistCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * The data used to create many Watchlists.
+     */
+    data: WatchlistCreateManyInput | WatchlistCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Watchlist update
+   */
+  export type WatchlistUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Watchlist.
+     */
+    data: XOR<WatchlistUpdateInput, WatchlistUncheckedUpdateInput>
+    /**
+     * Choose, which Watchlist to update.
+     */
+    where: WatchlistWhereUniqueInput
+  }
+
+  /**
+   * Watchlist updateMany
+   */
+  export type WatchlistUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Watchlists.
+     */
+    data: XOR<WatchlistUpdateManyMutationInput, WatchlistUncheckedUpdateManyInput>
+    /**
+     * Filter which Watchlists to update
+     */
+    where?: WatchlistWhereInput
+    /**
+     * Limit how many Watchlists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Watchlist updateManyAndReturn
+   */
+  export type WatchlistUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * The data used to update Watchlists.
+     */
+    data: XOR<WatchlistUpdateManyMutationInput, WatchlistUncheckedUpdateManyInput>
+    /**
+     * Filter which Watchlists to update
+     */
+    where?: WatchlistWhereInput
+    /**
+     * Limit how many Watchlists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Watchlist upsert
+   */
+  export type WatchlistUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Watchlist to update in case it exists.
+     */
+    where: WatchlistWhereUniqueInput
+    /**
+     * In case the Watchlist found by the `where` argument doesn't exist, create a new Watchlist with this data.
+     */
+    create: XOR<WatchlistCreateInput, WatchlistUncheckedCreateInput>
+    /**
+     * In case the Watchlist was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WatchlistUpdateInput, WatchlistUncheckedUpdateInput>
+  }
+
+  /**
+   * Watchlist delete
+   */
+  export type WatchlistDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    /**
+     * Filter which Watchlist to delete.
+     */
+    where: WatchlistWhereUniqueInput
+  }
+
+  /**
+   * Watchlist deleteMany
+   */
+  export type WatchlistDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Watchlists to delete
+     */
+    where?: WatchlistWhereInput
+    /**
+     * Limit how many Watchlists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Watchlist without action
+   */
+  export type WatchlistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Setting
+   */
+
+  export type AggregateSetting = {
+    _count: SettingCountAggregateOutputType | null
+    _min: SettingMinAggregateOutputType | null
+    _max: SettingMaxAggregateOutputType | null
+  }
+
+  export type SettingMinAggregateOutputType = {
+    key: string | null
+    value: string | null
+  }
+
+  export type SettingMaxAggregateOutputType = {
+    key: string | null
+    value: string | null
+  }
+
+  export type SettingCountAggregateOutputType = {
+    key: number
+    value: number
+    _all: number
+  }
+
+
+  export type SettingMinAggregateInputType = {
+    key?: true
+    value?: true
+  }
+
+  export type SettingMaxAggregateInputType = {
+    key?: true
+    value?: true
+  }
+
+  export type SettingCountAggregateInputType = {
+    key?: true
+    value?: true
+    _all?: true
+  }
+
+  export type SettingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Setting to aggregate.
+     */
+    where?: SettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Settings
+    **/
+    _count?: true | SettingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SettingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SettingMaxAggregateInputType
+  }
+
+  export type GetSettingAggregateType<T extends SettingAggregateArgs> = {
+        [P in keyof T & keyof AggregateSetting]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSetting[P]>
+      : GetScalarType<T[P], AggregateSetting[P]>
+  }
+
+
+
+
+  export type SettingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SettingWhereInput
+    orderBy?: SettingOrderByWithAggregationInput | SettingOrderByWithAggregationInput[]
+    by: SettingScalarFieldEnum[] | SettingScalarFieldEnum
+    having?: SettingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SettingCountAggregateInputType | true
+    _min?: SettingMinAggregateInputType
+    _max?: SettingMaxAggregateInputType
+  }
+
+  export type SettingGroupByOutputType = {
+    key: string
+    value: string
+    _count: SettingCountAggregateOutputType | null
+    _min: SettingMinAggregateOutputType | null
+    _max: SettingMaxAggregateOutputType | null
+  }
+
+  type GetSettingGroupByPayload<T extends SettingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SettingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SettingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SettingGroupByOutputType[P]>
+            : GetScalarType<T[P], SettingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SettingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["setting"]>
+
+  export type SettingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["setting"]>
+
+  export type SettingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["setting"]>
+
+  export type SettingSelectScalar = {
+    key?: boolean
+    value?: boolean
+  }
+
+  export type SettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"key" | "value", ExtArgs["result"]["setting"]>
+
+  export type $SettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Setting"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      key: string
+      value: string
+    }, ExtArgs["result"]["setting"]>
+    composites: {}
+  }
+
+  type SettingGetPayload<S extends boolean | null | undefined | SettingDefaultArgs> = $Result.GetResult<Prisma.$SettingPayload, S>
+
+  type SettingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SettingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SettingCountAggregateInputType | true
+    }
+
+  export interface SettingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Setting'], meta: { name: 'Setting' } }
+    /**
+     * Find zero or one Setting that matches the filter.
+     * @param {SettingFindUniqueArgs} args - Arguments to find a Setting
+     * @example
+     * // Get one Setting
+     * const setting = await prisma.setting.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SettingFindUniqueArgs>(args: SelectSubset<T, SettingFindUniqueArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Setting that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SettingFindUniqueOrThrowArgs} args - Arguments to find a Setting
+     * @example
+     * // Get one Setting
+     * const setting = await prisma.setting.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SettingFindUniqueOrThrowArgs>(args: SelectSubset<T, SettingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Setting that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingFindFirstArgs} args - Arguments to find a Setting
+     * @example
+     * // Get one Setting
+     * const setting = await prisma.setting.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SettingFindFirstArgs>(args?: SelectSubset<T, SettingFindFirstArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Setting that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingFindFirstOrThrowArgs} args - Arguments to find a Setting
+     * @example
+     * // Get one Setting
+     * const setting = await prisma.setting.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SettingFindFirstOrThrowArgs>(args?: SelectSubset<T, SettingFindFirstOrThrowArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Settings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Settings
+     * const settings = await prisma.setting.findMany()
+     * 
+     * // Get first 10 Settings
+     * const settings = await prisma.setting.findMany({ take: 10 })
+     * 
+     * // Only select the `key`
+     * const settingWithKeyOnly = await prisma.setting.findMany({ select: { key: true } })
+     * 
+     */
+    findMany<T extends SettingFindManyArgs>(args?: SelectSubset<T, SettingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Setting.
+     * @param {SettingCreateArgs} args - Arguments to create a Setting.
+     * @example
+     * // Create one Setting
+     * const Setting = await prisma.setting.create({
+     *   data: {
+     *     // ... data to create a Setting
+     *   }
+     * })
+     * 
+     */
+    create<T extends SettingCreateArgs>(args: SelectSubset<T, SettingCreateArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Settings.
+     * @param {SettingCreateManyArgs} args - Arguments to create many Settings.
+     * @example
+     * // Create many Settings
+     * const setting = await prisma.setting.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SettingCreateManyArgs>(args?: SelectSubset<T, SettingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Settings and returns the data saved in the database.
+     * @param {SettingCreateManyAndReturnArgs} args - Arguments to create many Settings.
+     * @example
+     * // Create many Settings
+     * const setting = await prisma.setting.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Settings and only return the `key`
+     * const settingWithKeyOnly = await prisma.setting.createManyAndReturn({
+     *   select: { key: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SettingCreateManyAndReturnArgs>(args?: SelectSubset<T, SettingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Setting.
+     * @param {SettingDeleteArgs} args - Arguments to delete one Setting.
+     * @example
+     * // Delete one Setting
+     * const Setting = await prisma.setting.delete({
+     *   where: {
+     *     // ... filter to delete one Setting
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SettingDeleteArgs>(args: SelectSubset<T, SettingDeleteArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Setting.
+     * @param {SettingUpdateArgs} args - Arguments to update one Setting.
+     * @example
+     * // Update one Setting
+     * const setting = await prisma.setting.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SettingUpdateArgs>(args: SelectSubset<T, SettingUpdateArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Settings.
+     * @param {SettingDeleteManyArgs} args - Arguments to filter Settings to delete.
+     * @example
+     * // Delete a few Settings
+     * const { count } = await prisma.setting.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SettingDeleteManyArgs>(args?: SelectSubset<T, SettingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Settings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Settings
+     * const setting = await prisma.setting.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SettingUpdateManyArgs>(args: SelectSubset<T, SettingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Settings and returns the data updated in the database.
+     * @param {SettingUpdateManyAndReturnArgs} args - Arguments to update many Settings.
+     * @example
+     * // Update many Settings
+     * const setting = await prisma.setting.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Settings and only return the `key`
+     * const settingWithKeyOnly = await prisma.setting.updateManyAndReturn({
+     *   select: { key: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SettingUpdateManyAndReturnArgs>(args: SelectSubset<T, SettingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Setting.
+     * @param {SettingUpsertArgs} args - Arguments to update or create a Setting.
+     * @example
+     * // Update or create a Setting
+     * const setting = await prisma.setting.upsert({
+     *   create: {
+     *     // ... data to create a Setting
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Setting we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SettingUpsertArgs>(args: SelectSubset<T, SettingUpsertArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Settings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingCountArgs} args - Arguments to filter Settings to count.
+     * @example
+     * // Count the number of Settings
+     * const count = await prisma.setting.count({
+     *   where: {
+     *     // ... the filter for the Settings we want to count
+     *   }
+     * })
+    **/
+    count<T extends SettingCountArgs>(
+      args?: Subset<T, SettingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SettingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Setting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SettingAggregateArgs>(args: Subset<T, SettingAggregateArgs>): Prisma.PrismaPromise<GetSettingAggregateType<T>>
+
+    /**
+     * Group by Setting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SettingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SettingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SettingGroupByArgs['orderBy'] }
+        : { orderBy?: SettingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SettingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSettingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Setting model
+   */
+  readonly fields: SettingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Setting.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SettingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Setting model
+   */
+  interface SettingFieldRefs {
+    readonly key: FieldRef<"Setting", 'String'>
+    readonly value: FieldRef<"Setting", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Setting findUnique
+   */
+  export type SettingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * Filter, which Setting to fetch.
+     */
+    where: SettingWhereUniqueInput
+  }
+
+  /**
+   * Setting findUniqueOrThrow
+   */
+  export type SettingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * Filter, which Setting to fetch.
+     */
+    where: SettingWhereUniqueInput
+  }
+
+  /**
+   * Setting findFirst
+   */
+  export type SettingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * Filter, which Setting to fetch.
+     */
+    where?: SettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Settings.
+     */
+    cursor?: SettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Settings.
+     */
+    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
+  }
+
+  /**
+   * Setting findFirstOrThrow
+   */
+  export type SettingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * Filter, which Setting to fetch.
+     */
+    where?: SettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Settings.
+     */
+    cursor?: SettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Settings.
+     */
+    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
+  }
+
+  /**
+   * Setting findMany
+   */
+  export type SettingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * Filter, which Settings to fetch.
+     */
+    where?: SettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Settings to fetch.
+     */
+    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Settings.
+     */
+    cursor?: SettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Settings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Settings.
+     */
+    skip?: number
+    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
+  }
+
+  /**
+   * Setting create
+   */
+  export type SettingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Setting.
+     */
+    data: XOR<SettingCreateInput, SettingUncheckedCreateInput>
+  }
+
+  /**
+   * Setting createMany
+   */
+  export type SettingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Settings.
+     */
+    data: SettingCreateManyInput | SettingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Setting createManyAndReturn
+   */
+  export type SettingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Settings.
+     */
+    data: SettingCreateManyInput | SettingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Setting update
+   */
+  export type SettingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Setting.
+     */
+    data: XOR<SettingUpdateInput, SettingUncheckedUpdateInput>
+    /**
+     * Choose, which Setting to update.
+     */
+    where: SettingWhereUniqueInput
+  }
+
+  /**
+   * Setting updateMany
+   */
+  export type SettingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Settings.
+     */
+    data: XOR<SettingUpdateManyMutationInput, SettingUncheckedUpdateManyInput>
+    /**
+     * Filter which Settings to update
+     */
+    where?: SettingWhereInput
+    /**
+     * Limit how many Settings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Setting updateManyAndReturn
+   */
+  export type SettingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * The data used to update Settings.
+     */
+    data: XOR<SettingUpdateManyMutationInput, SettingUncheckedUpdateManyInput>
+    /**
+     * Filter which Settings to update
+     */
+    where?: SettingWhereInput
+    /**
+     * Limit how many Settings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Setting upsert
+   */
+  export type SettingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Setting to update in case it exists.
+     */
+    where: SettingWhereUniqueInput
+    /**
+     * In case the Setting found by the `where` argument doesn't exist, create a new Setting with this data.
+     */
+    create: XOR<SettingCreateInput, SettingUncheckedCreateInput>
+    /**
+     * In case the Setting was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SettingUpdateInput, SettingUncheckedUpdateInput>
+  }
+
+  /**
+   * Setting delete
+   */
+  export type SettingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+    /**
+     * Filter which Setting to delete.
+     */
+    where: SettingWhereUniqueInput
+  }
+
+  /**
+   * Setting deleteMany
+   */
+  export type SettingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Settings to delete
+     */
+    where?: SettingWhereInput
+    /**
+     * Limit how many Settings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Setting without action
+   */
+  export type SettingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Setting
+     */
+    select?: SettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Setting
+     */
+    omit?: SettingOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model User
@@ -1298,6 +3507,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     bids?: boolean | User$bidsArgs<ExtArgs>
+    watchlists?: boolean | User$watchlistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1331,6 +3541,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bids?: boolean | User$bidsArgs<ExtArgs>
+    watchlists?: boolean | User$watchlistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1340,6 +3551,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       bids: Prisma.$BidPayload<ExtArgs>[]
+      watchlists: Prisma.$WatchlistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1743,6 +3955,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bids<T extends User$bidsArgs<ExtArgs> = {}>(args?: Subset<T, User$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    watchlists<T extends User$watchlistsArgs<ExtArgs> = {}>(args?: Subset<T, User$watchlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2190,6 +4403,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.watchlists
+   */
+  export type User$watchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    where?: WatchlistWhereInput
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    cursor?: WatchlistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2491,6 +4728,7 @@ export namespace Prisma {
     kategori?: boolean
     createdAt?: boolean
     bids?: boolean | Produk$bidsArgs<ExtArgs>
+    watchlists?: boolean | Produk$watchlistsArgs<ExtArgs>
     _count?: boolean | ProdukCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["produk"]>
 
@@ -2548,6 +4786,7 @@ export namespace Prisma {
   export type ProdukOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama_barang" | "tanggal" | "harga_awal" | "deskripsi" | "image_url" | "merk_mobil" | "tipe_mobil" | "transmisi" | "jumlah_seat" | "tahun" | "kilometer" | "kategori" | "createdAt", ExtArgs["result"]["produk"]>
   export type ProdukInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bids?: boolean | Produk$bidsArgs<ExtArgs>
+    watchlists?: boolean | Produk$watchlistsArgs<ExtArgs>
     _count?: boolean | ProdukCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProdukIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2557,6 +4796,7 @@ export namespace Prisma {
     name: "Produk"
     objects: {
       bids: Prisma.$BidPayload<ExtArgs>[]
+      watchlists: Prisma.$WatchlistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2968,6 +5208,7 @@ export namespace Prisma {
   export interface Prisma__ProdukClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bids<T extends Produk$bidsArgs<ExtArgs> = {}>(args?: Subset<T, Produk$bidsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    watchlists<T extends Produk$watchlistsArgs<ExtArgs> = {}>(args?: Subset<T, Produk$watchlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3420,6 +5661,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BidScalarFieldEnum | BidScalarFieldEnum[]
+  }
+
+  /**
+   * Produk.watchlists
+   */
+  export type Produk$watchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    where?: WatchlistWhereInput
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    cursor?: WatchlistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
   }
 
   /**
@@ -4568,6 +6833,24 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const WatchlistScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    produkId: 'produkId',
+    createdAt: 'createdAt'
+  };
+
+  export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
+
+
+  export const SettingScalarFieldEnum: {
+    key: 'key',
+    value: 'value'
+  };
+
+  export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -4714,6 +6997,96 @@ export namespace Prisma {
    */
 
 
+  export type WatchlistWhereInput = {
+    AND?: WatchlistWhereInput | WatchlistWhereInput[]
+    OR?: WatchlistWhereInput[]
+    NOT?: WatchlistWhereInput | WatchlistWhereInput[]
+    id?: StringFilter<"Watchlist"> | string
+    userId?: StringFilter<"Watchlist"> | string
+    produkId?: StringFilter<"Watchlist"> | string
+    createdAt?: DateTimeFilter<"Watchlist"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    produk?: XOR<ProdukScalarRelationFilter, ProdukWhereInput>
+  }
+
+  export type WatchlistOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    produkId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    produk?: ProdukOrderByWithRelationInput
+  }
+
+  export type WatchlistWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WatchlistWhereInput | WatchlistWhereInput[]
+    OR?: WatchlistWhereInput[]
+    NOT?: WatchlistWhereInput | WatchlistWhereInput[]
+    userId?: StringFilter<"Watchlist"> | string
+    produkId?: StringFilter<"Watchlist"> | string
+    createdAt?: DateTimeFilter<"Watchlist"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    produk?: XOR<ProdukScalarRelationFilter, ProdukWhereInput>
+  }, "id">
+
+  export type WatchlistOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    produkId?: SortOrder
+    createdAt?: SortOrder
+    _count?: WatchlistCountOrderByAggregateInput
+    _max?: WatchlistMaxOrderByAggregateInput
+    _min?: WatchlistMinOrderByAggregateInput
+  }
+
+  export type WatchlistScalarWhereWithAggregatesInput = {
+    AND?: WatchlistScalarWhereWithAggregatesInput | WatchlistScalarWhereWithAggregatesInput[]
+    OR?: WatchlistScalarWhereWithAggregatesInput[]
+    NOT?: WatchlistScalarWhereWithAggregatesInput | WatchlistScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Watchlist"> | string
+    userId?: StringWithAggregatesFilter<"Watchlist"> | string
+    produkId?: StringWithAggregatesFilter<"Watchlist"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Watchlist"> | Date | string
+  }
+
+  export type SettingWhereInput = {
+    AND?: SettingWhereInput | SettingWhereInput[]
+    OR?: SettingWhereInput[]
+    NOT?: SettingWhereInput | SettingWhereInput[]
+    key?: StringFilter<"Setting"> | string
+    value?: StringFilter<"Setting"> | string
+  }
+
+  export type SettingOrderByWithRelationInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type SettingWhereUniqueInput = Prisma.AtLeast<{
+    key?: string
+    AND?: SettingWhereInput | SettingWhereInput[]
+    OR?: SettingWhereInput[]
+    NOT?: SettingWhereInput | SettingWhereInput[]
+    value?: StringFilter<"Setting"> | string
+  }, "key">
+
+  export type SettingOrderByWithAggregationInput = {
+    key?: SortOrder
+    value?: SortOrder
+    _count?: SettingCountOrderByAggregateInput
+    _max?: SettingMaxOrderByAggregateInput
+    _min?: SettingMinOrderByAggregateInput
+  }
+
+  export type SettingScalarWhereWithAggregatesInput = {
+    AND?: SettingScalarWhereWithAggregatesInput | SettingScalarWhereWithAggregatesInput[]
+    OR?: SettingScalarWhereWithAggregatesInput[]
+    NOT?: SettingScalarWhereWithAggregatesInput | SettingScalarWhereWithAggregatesInput[]
+    key?: StringWithAggregatesFilter<"Setting"> | string
+    value?: StringWithAggregatesFilter<"Setting"> | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -4725,6 +7098,7 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     bids?: BidListRelationFilter
+    watchlists?: WatchlistListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4735,6 +7109,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     bids?: BidOrderByRelationAggregateInput
+    watchlists?: WatchlistOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4748,6 +7123,7 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     bids?: BidListRelationFilter
+    watchlists?: WatchlistListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -4793,6 +7169,7 @@ export namespace Prisma {
     kategori?: EnumKategoriFilter<"Produk"> | $Enums.Kategori
     createdAt?: DateTimeFilter<"Produk"> | Date | string
     bids?: BidListRelationFilter
+    watchlists?: WatchlistListRelationFilter
   }
 
   export type ProdukOrderByWithRelationInput = {
@@ -4811,6 +7188,7 @@ export namespace Prisma {
     kategori?: SortOrder
     createdAt?: SortOrder
     bids?: BidOrderByRelationAggregateInput
+    watchlists?: WatchlistOrderByRelationAggregateInput
   }
 
   export type ProdukWhereUniqueInput = Prisma.AtLeast<{
@@ -4832,6 +7210,7 @@ export namespace Prisma {
     kategori?: EnumKategoriFilter<"Produk"> | $Enums.Kategori
     createdAt?: DateTimeFilter<"Produk"> | Date | string
     bids?: BidListRelationFilter
+    watchlists?: WatchlistListRelationFilter
   }, "id">
 
   export type ProdukOrderByWithAggregationInput = {
@@ -4941,6 +7320,88 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Bid"> | Date | string
   }
 
+  export type WatchlistCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWatchlistsInput
+    produk: ProdukCreateNestedOneWithoutWatchlistsInput
+  }
+
+  export type WatchlistUncheckedCreateInput = {
+    id?: string
+    userId: string
+    produkId: string
+    createdAt?: Date | string
+  }
+
+  export type WatchlistUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWatchlistsNestedInput
+    produk?: ProdukUpdateOneRequiredWithoutWatchlistsNestedInput
+  }
+
+  export type WatchlistUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    produkId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WatchlistCreateManyInput = {
+    id?: string
+    userId: string
+    produkId: string
+    createdAt?: Date | string
+  }
+
+  export type WatchlistUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WatchlistUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    produkId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SettingCreateInput = {
+    key: string
+    value: string
+  }
+
+  export type SettingUncheckedCreateInput = {
+    key: string
+    value: string
+  }
+
+  export type SettingUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SettingUncheckedUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SettingCreateManyInput = {
+    key: string
+    value: string
+  }
+
+  export type SettingUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SettingUncheckedUpdateManyInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -4949,6 +7410,7 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     bids?: BidCreateNestedManyWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4959,6 +7421,7 @@ export namespace Prisma {
     role?: string
     createdAt?: Date | string
     bids?: BidUncheckedCreateNestedManyWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4969,6 +7432,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bids?: BidUpdateManyWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -4979,6 +7443,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bids?: BidUncheckedUpdateManyWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5024,6 +7489,7 @@ export namespace Prisma {
     kategori?: $Enums.Kategori
     createdAt?: Date | string
     bids?: BidCreateNestedManyWithoutProdukInput
+    watchlists?: WatchlistCreateNestedManyWithoutProdukInput
   }
 
   export type ProdukUncheckedCreateInput = {
@@ -5042,6 +7508,7 @@ export namespace Prisma {
     kategori?: $Enums.Kategori
     createdAt?: Date | string
     bids?: BidUncheckedCreateNestedManyWithoutProdukInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutProdukInput
   }
 
   export type ProdukUpdateInput = {
@@ -5060,6 +7527,7 @@ export namespace Prisma {
     kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bids?: BidUpdateManyWithoutProdukNestedInput
+    watchlists?: WatchlistUpdateManyWithoutProdukNestedInput
   }
 
   export type ProdukUncheckedUpdateInput = {
@@ -5078,6 +7546,7 @@ export namespace Prisma {
     kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bids?: BidUncheckedUpdateManyWithoutProdukNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutProdukNestedInput
   }
 
   export type ProdukCreateManyInput = {
@@ -5218,40 +7687,34 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type BidListRelationFilter = {
-    every?: BidWhereInput
-    some?: BidWhereInput
-    none?: BidWhereInput
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
-  export type BidOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type ProdukScalarRelationFilter = {
+    is?: ProdukWhereInput
+    isNot?: ProdukWhereInput
   }
 
-  export type UserCountOrderByAggregateInput = {
+  export type WatchlistCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    role?: SortOrder
+    userId?: SortOrder
+    produkId?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type UserMaxOrderByAggregateInput = {
+  export type WatchlistMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    role?: SortOrder
+    userId?: SortOrder
+    produkId?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type UserMinOrderByAggregateInput = {
+  export type WatchlistMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    role?: SortOrder
+    userId?: SortOrder
+    produkId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5285,6 +7748,68 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SettingCountOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type SettingMaxOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type SettingMinOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type BidListRelationFilter = {
+    every?: BidWhereInput
+    some?: BidWhereInput
+    none?: BidWhereInput
+  }
+
+  export type WatchlistListRelationFilter = {
+    every?: WatchlistWhereInput
+    some?: WatchlistWhereInput
+    none?: WatchlistWhereInput
+  }
+
+  export type BidOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WatchlistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5461,16 +7986,6 @@ export namespace Prisma {
     _max?: NestedEnumKategoriFilter<$PrismaModel>
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type ProdukScalarRelationFilter = {
-    is?: ProdukWhereInput
-    isNot?: ProdukWhereInput
-  }
-
   export type BidCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -5506,11 +8021,54 @@ export namespace Prisma {
     bidAmount?: SortOrder
   }
 
+  export type UserCreateNestedOneWithoutWatchlistsInput = {
+    create?: XOR<UserCreateWithoutWatchlistsInput, UserUncheckedCreateWithoutWatchlistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWatchlistsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ProdukCreateNestedOneWithoutWatchlistsInput = {
+    create?: XOR<ProdukCreateWithoutWatchlistsInput, ProdukUncheckedCreateWithoutWatchlistsInput>
+    connectOrCreate?: ProdukCreateOrConnectWithoutWatchlistsInput
+    connect?: ProdukWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutWatchlistsNestedInput = {
+    create?: XOR<UserCreateWithoutWatchlistsInput, UserUncheckedCreateWithoutWatchlistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWatchlistsInput
+    upsert?: UserUpsertWithoutWatchlistsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWatchlistsInput, UserUpdateWithoutWatchlistsInput>, UserUncheckedUpdateWithoutWatchlistsInput>
+  }
+
+  export type ProdukUpdateOneRequiredWithoutWatchlistsNestedInput = {
+    create?: XOR<ProdukCreateWithoutWatchlistsInput, ProdukUncheckedCreateWithoutWatchlistsInput>
+    connectOrCreate?: ProdukCreateOrConnectWithoutWatchlistsInput
+    upsert?: ProdukUpsertWithoutWatchlistsInput
+    connect?: ProdukWhereUniqueInput
+    update?: XOR<XOR<ProdukUpdateToOneWithWhereWithoutWatchlistsInput, ProdukUpdateWithoutWatchlistsInput>, ProdukUncheckedUpdateWithoutWatchlistsInput>
+  }
+
   export type BidCreateNestedManyWithoutUserInput = {
     create?: XOR<BidCreateWithoutUserInput, BidUncheckedCreateWithoutUserInput> | BidCreateWithoutUserInput[] | BidUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BidCreateOrConnectWithoutUserInput | BidCreateOrConnectWithoutUserInput[]
     createMany?: BidCreateManyUserInputEnvelope
     connect?: BidWhereUniqueInput | BidWhereUniqueInput[]
+  }
+
+  export type WatchlistCreateNestedManyWithoutUserInput = {
+    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
+    createMany?: WatchlistCreateManyUserInputEnvelope
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
   }
 
   export type BidUncheckedCreateNestedManyWithoutUserInput = {
@@ -5520,12 +8078,11 @@ export namespace Prisma {
     connect?: BidWhereUniqueInput | BidWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type WatchlistUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
+    createMany?: WatchlistCreateManyUserInputEnvelope
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
   }
 
   export type BidUpdateManyWithoutUserNestedInput = {
@@ -5542,6 +8099,20 @@ export namespace Prisma {
     deleteMany?: BidScalarWhereInput | BidScalarWhereInput[]
   }
 
+  export type WatchlistUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
+    upsert?: WatchlistUpsertWithWhereUniqueWithoutUserInput | WatchlistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WatchlistCreateManyUserInputEnvelope
+    set?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    disconnect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    delete?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    update?: WatchlistUpdateWithWhereUniqueWithoutUserInput | WatchlistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WatchlistUpdateManyWithWhereWithoutUserInput | WatchlistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
+  }
+
   export type BidUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<BidCreateWithoutUserInput, BidUncheckedCreateWithoutUserInput> | BidCreateWithoutUserInput[] | BidUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BidCreateOrConnectWithoutUserInput | BidCreateOrConnectWithoutUserInput[]
@@ -5556,6 +8127,20 @@ export namespace Prisma {
     deleteMany?: BidScalarWhereInput | BidScalarWhereInput[]
   }
 
+  export type WatchlistUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
+    upsert?: WatchlistUpsertWithWhereUniqueWithoutUserInput | WatchlistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WatchlistCreateManyUserInputEnvelope
+    set?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    disconnect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    delete?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    update?: WatchlistUpdateWithWhereUniqueWithoutUserInput | WatchlistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WatchlistUpdateManyWithWhereWithoutUserInput | WatchlistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
+  }
+
   export type BidCreateNestedManyWithoutProdukInput = {
     create?: XOR<BidCreateWithoutProdukInput, BidUncheckedCreateWithoutProdukInput> | BidCreateWithoutProdukInput[] | BidUncheckedCreateWithoutProdukInput[]
     connectOrCreate?: BidCreateOrConnectWithoutProdukInput | BidCreateOrConnectWithoutProdukInput[]
@@ -5563,11 +8148,25 @@ export namespace Prisma {
     connect?: BidWhereUniqueInput | BidWhereUniqueInput[]
   }
 
+  export type WatchlistCreateNestedManyWithoutProdukInput = {
+    create?: XOR<WatchlistCreateWithoutProdukInput, WatchlistUncheckedCreateWithoutProdukInput> | WatchlistCreateWithoutProdukInput[] | WatchlistUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutProdukInput | WatchlistCreateOrConnectWithoutProdukInput[]
+    createMany?: WatchlistCreateManyProdukInputEnvelope
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+  }
+
   export type BidUncheckedCreateNestedManyWithoutProdukInput = {
     create?: XOR<BidCreateWithoutProdukInput, BidUncheckedCreateWithoutProdukInput> | BidCreateWithoutProdukInput[] | BidUncheckedCreateWithoutProdukInput[]
     connectOrCreate?: BidCreateOrConnectWithoutProdukInput | BidCreateOrConnectWithoutProdukInput[]
     createMany?: BidCreateManyProdukInputEnvelope
     connect?: BidWhereUniqueInput | BidWhereUniqueInput[]
+  }
+
+  export type WatchlistUncheckedCreateNestedManyWithoutProdukInput = {
+    create?: XOR<WatchlistCreateWithoutProdukInput, WatchlistUncheckedCreateWithoutProdukInput> | WatchlistCreateWithoutProdukInput[] | WatchlistUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutProdukInput | WatchlistCreateOrConnectWithoutProdukInput[]
+    createMany?: WatchlistCreateManyProdukInputEnvelope
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -5608,6 +8207,20 @@ export namespace Prisma {
     deleteMany?: BidScalarWhereInput | BidScalarWhereInput[]
   }
 
+  export type WatchlistUpdateManyWithoutProdukNestedInput = {
+    create?: XOR<WatchlistCreateWithoutProdukInput, WatchlistUncheckedCreateWithoutProdukInput> | WatchlistCreateWithoutProdukInput[] | WatchlistUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutProdukInput | WatchlistCreateOrConnectWithoutProdukInput[]
+    upsert?: WatchlistUpsertWithWhereUniqueWithoutProdukInput | WatchlistUpsertWithWhereUniqueWithoutProdukInput[]
+    createMany?: WatchlistCreateManyProdukInputEnvelope
+    set?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    disconnect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    delete?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    update?: WatchlistUpdateWithWhereUniqueWithoutProdukInput | WatchlistUpdateWithWhereUniqueWithoutProdukInput[]
+    updateMany?: WatchlistUpdateManyWithWhereWithoutProdukInput | WatchlistUpdateManyWithWhereWithoutProdukInput[]
+    deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
+  }
+
   export type BidUncheckedUpdateManyWithoutProdukNestedInput = {
     create?: XOR<BidCreateWithoutProdukInput, BidUncheckedCreateWithoutProdukInput> | BidCreateWithoutProdukInput[] | BidUncheckedCreateWithoutProdukInput[]
     connectOrCreate?: BidCreateOrConnectWithoutProdukInput | BidCreateOrConnectWithoutProdukInput[]
@@ -5620,6 +8233,20 @@ export namespace Prisma {
     update?: BidUpdateWithWhereUniqueWithoutProdukInput | BidUpdateWithWhereUniqueWithoutProdukInput[]
     updateMany?: BidUpdateManyWithWhereWithoutProdukInput | BidUpdateManyWithWhereWithoutProdukInput[]
     deleteMany?: BidScalarWhereInput | BidScalarWhereInput[]
+  }
+
+  export type WatchlistUncheckedUpdateManyWithoutProdukNestedInput = {
+    create?: XOR<WatchlistCreateWithoutProdukInput, WatchlistUncheckedCreateWithoutProdukInput> | WatchlistCreateWithoutProdukInput[] | WatchlistUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutProdukInput | WatchlistCreateOrConnectWithoutProdukInput[]
+    upsert?: WatchlistUpsertWithWhereUniqueWithoutProdukInput | WatchlistUpsertWithWhereUniqueWithoutProdukInput[]
+    createMany?: WatchlistCreateManyProdukInputEnvelope
+    set?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    disconnect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    delete?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    update?: WatchlistUpdateWithWhereUniqueWithoutProdukInput | WatchlistUpdateWithWhereUniqueWithoutProdukInput[]
+    updateMany?: WatchlistUpdateManyWithWhereWithoutProdukInput | WatchlistUpdateManyWithWhereWithoutProdukInput[]
+    deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutBidsInput = {
@@ -5830,6 +8457,150 @@ export namespace Prisma {
     _max?: NestedEnumKategoriFilter<$PrismaModel>
   }
 
+  export type UserCreateWithoutWatchlistsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: string
+    createdAt?: Date | string
+    bids?: BidCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWatchlistsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: string
+    createdAt?: Date | string
+    bids?: BidUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWatchlistsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWatchlistsInput, UserUncheckedCreateWithoutWatchlistsInput>
+  }
+
+  export type ProdukCreateWithoutWatchlistsInput = {
+    id?: string
+    nama_barang: string
+    tanggal: Date | string
+    harga_awal: number
+    deskripsi: string
+    image_url?: string | null
+    merk_mobil?: string | null
+    tipe_mobil?: string | null
+    transmisi?: string | null
+    jumlah_seat?: number | null
+    tahun?: number | null
+    kilometer?: number | null
+    kategori?: $Enums.Kategori
+    createdAt?: Date | string
+    bids?: BidCreateNestedManyWithoutProdukInput
+  }
+
+  export type ProdukUncheckedCreateWithoutWatchlistsInput = {
+    id?: string
+    nama_barang: string
+    tanggal: Date | string
+    harga_awal: number
+    deskripsi: string
+    image_url?: string | null
+    merk_mobil?: string | null
+    tipe_mobil?: string | null
+    transmisi?: string | null
+    jumlah_seat?: number | null
+    tahun?: number | null
+    kilometer?: number | null
+    kategori?: $Enums.Kategori
+    createdAt?: Date | string
+    bids?: BidUncheckedCreateNestedManyWithoutProdukInput
+  }
+
+  export type ProdukCreateOrConnectWithoutWatchlistsInput = {
+    where: ProdukWhereUniqueInput
+    create: XOR<ProdukCreateWithoutWatchlistsInput, ProdukUncheckedCreateWithoutWatchlistsInput>
+  }
+
+  export type UserUpsertWithoutWatchlistsInput = {
+    update: XOR<UserUpdateWithoutWatchlistsInput, UserUncheckedUpdateWithoutWatchlistsInput>
+    create: XOR<UserCreateWithoutWatchlistsInput, UserUncheckedCreateWithoutWatchlistsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWatchlistsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWatchlistsInput, UserUncheckedUpdateWithoutWatchlistsInput>
+  }
+
+  export type UserUpdateWithoutWatchlistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bids?: BidUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWatchlistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bids?: BidUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ProdukUpsertWithoutWatchlistsInput = {
+    update: XOR<ProdukUpdateWithoutWatchlistsInput, ProdukUncheckedUpdateWithoutWatchlistsInput>
+    create: XOR<ProdukCreateWithoutWatchlistsInput, ProdukUncheckedCreateWithoutWatchlistsInput>
+    where?: ProdukWhereInput
+  }
+
+  export type ProdukUpdateToOneWithWhereWithoutWatchlistsInput = {
+    where?: ProdukWhereInput
+    data: XOR<ProdukUpdateWithoutWatchlistsInput, ProdukUncheckedUpdateWithoutWatchlistsInput>
+  }
+
+  export type ProdukUpdateWithoutWatchlistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama_barang?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    harga_awal?: IntFieldUpdateOperationsInput | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
+    tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
+    transmisi?: NullableStringFieldUpdateOperationsInput | string | null
+    jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
+    tahun?: NullableIntFieldUpdateOperationsInput | number | null
+    kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bids?: BidUpdateManyWithoutProdukNestedInput
+  }
+
+  export type ProdukUncheckedUpdateWithoutWatchlistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama_barang?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    harga_awal?: IntFieldUpdateOperationsInput | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    merk_mobil?: NullableStringFieldUpdateOperationsInput | string | null
+    tipe_mobil?: NullableStringFieldUpdateOperationsInput | string | null
+    transmisi?: NullableStringFieldUpdateOperationsInput | string | null
+    jumlah_seat?: NullableIntFieldUpdateOperationsInput | number | null
+    tahun?: NullableIntFieldUpdateOperationsInput | number | null
+    kilometer?: NullableIntFieldUpdateOperationsInput | number | null
+    kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bids?: BidUncheckedUpdateManyWithoutProdukNestedInput
+  }
+
   export type BidCreateWithoutUserInput = {
     id?: string
     bidAmount: number
@@ -5853,6 +8624,28 @@ export namespace Prisma {
 
   export type BidCreateManyUserInputEnvelope = {
     data: BidCreateManyUserInput | BidCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WatchlistCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    produk: ProdukCreateNestedOneWithoutWatchlistsInput
+  }
+
+  export type WatchlistUncheckedCreateWithoutUserInput = {
+    id?: string
+    produkId: string
+    createdAt?: Date | string
+  }
+
+  export type WatchlistCreateOrConnectWithoutUserInput = {
+    where: WatchlistWhereUniqueInput
+    create: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput>
+  }
+
+  export type WatchlistCreateManyUserInputEnvelope = {
+    data: WatchlistCreateManyUserInput | WatchlistCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -5884,6 +8677,32 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Bid"> | Date | string
   }
 
+  export type WatchlistUpsertWithWhereUniqueWithoutUserInput = {
+    where: WatchlistWhereUniqueInput
+    update: XOR<WatchlistUpdateWithoutUserInput, WatchlistUncheckedUpdateWithoutUserInput>
+    create: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput>
+  }
+
+  export type WatchlistUpdateWithWhereUniqueWithoutUserInput = {
+    where: WatchlistWhereUniqueInput
+    data: XOR<WatchlistUpdateWithoutUserInput, WatchlistUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WatchlistUpdateManyWithWhereWithoutUserInput = {
+    where: WatchlistScalarWhereInput
+    data: XOR<WatchlistUpdateManyMutationInput, WatchlistUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WatchlistScalarWhereInput = {
+    AND?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
+    OR?: WatchlistScalarWhereInput[]
+    NOT?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
+    id?: StringFilter<"Watchlist"> | string
+    userId?: StringFilter<"Watchlist"> | string
+    produkId?: StringFilter<"Watchlist"> | string
+    createdAt?: DateTimeFilter<"Watchlist"> | Date | string
+  }
+
   export type BidCreateWithoutProdukInput = {
     id?: string
     bidAmount: number
@@ -5910,6 +8729,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WatchlistCreateWithoutProdukInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWatchlistsInput
+  }
+
+  export type WatchlistUncheckedCreateWithoutProdukInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type WatchlistCreateOrConnectWithoutProdukInput = {
+    where: WatchlistWhereUniqueInput
+    create: XOR<WatchlistCreateWithoutProdukInput, WatchlistUncheckedCreateWithoutProdukInput>
+  }
+
+  export type WatchlistCreateManyProdukInputEnvelope = {
+    data: WatchlistCreateManyProdukInput | WatchlistCreateManyProdukInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BidUpsertWithWhereUniqueWithoutProdukInput = {
     where: BidWhereUniqueInput
     update: XOR<BidUpdateWithoutProdukInput, BidUncheckedUpdateWithoutProdukInput>
@@ -5926,6 +8767,22 @@ export namespace Prisma {
     data: XOR<BidUpdateManyMutationInput, BidUncheckedUpdateManyWithoutProdukInput>
   }
 
+  export type WatchlistUpsertWithWhereUniqueWithoutProdukInput = {
+    where: WatchlistWhereUniqueInput
+    update: XOR<WatchlistUpdateWithoutProdukInput, WatchlistUncheckedUpdateWithoutProdukInput>
+    create: XOR<WatchlistCreateWithoutProdukInput, WatchlistUncheckedCreateWithoutProdukInput>
+  }
+
+  export type WatchlistUpdateWithWhereUniqueWithoutProdukInput = {
+    where: WatchlistWhereUniqueInput
+    data: XOR<WatchlistUpdateWithoutProdukInput, WatchlistUncheckedUpdateWithoutProdukInput>
+  }
+
+  export type WatchlistUpdateManyWithWhereWithoutProdukInput = {
+    where: WatchlistScalarWhereInput
+    data: XOR<WatchlistUpdateManyMutationInput, WatchlistUncheckedUpdateManyWithoutProdukInput>
+  }
+
   export type UserCreateWithoutBidsInput = {
     id?: string
     name: string
@@ -5933,6 +8790,7 @@ export namespace Prisma {
     password: string
     role?: string
     createdAt?: Date | string
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBidsInput = {
@@ -5942,6 +8800,7 @@ export namespace Prisma {
     password: string
     role?: string
     createdAt?: Date | string
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBidsInput = {
@@ -5964,6 +8823,7 @@ export namespace Prisma {
     kilometer?: number | null
     kategori?: $Enums.Kategori
     createdAt?: Date | string
+    watchlists?: WatchlistCreateNestedManyWithoutProdukInput
   }
 
   export type ProdukUncheckedCreateWithoutBidsInput = {
@@ -5981,6 +8841,7 @@ export namespace Prisma {
     kilometer?: number | null
     kategori?: $Enums.Kategori
     createdAt?: Date | string
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutProdukInput
   }
 
   export type ProdukCreateOrConnectWithoutBidsInput = {
@@ -6006,6 +8867,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBidsInput = {
@@ -6015,6 +8877,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProdukUpsertWithoutBidsInput = {
@@ -6043,6 +8906,7 @@ export namespace Prisma {
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
     kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    watchlists?: WatchlistUpdateManyWithoutProdukNestedInput
   }
 
   export type ProdukUncheckedUpdateWithoutBidsInput = {
@@ -6060,6 +8924,7 @@ export namespace Prisma {
     kilometer?: NullableIntFieldUpdateOperationsInput | number | null
     kategori?: EnumKategoriFieldUpdateOperationsInput | $Enums.Kategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    watchlists?: WatchlistUncheckedUpdateManyWithoutProdukNestedInput
   }
 
   export type BidCreateManyUserInput = {
@@ -6067,6 +8932,12 @@ export namespace Prisma {
     produkId: string
     bidAmount: number
     status?: string
+    createdAt?: Date | string
+  }
+
+  export type WatchlistCreateManyUserInput = {
+    id?: string
+    produkId: string
     createdAt?: Date | string
   }
 
@@ -6094,11 +8965,35 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WatchlistUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    produk?: ProdukUpdateOneRequiredWithoutWatchlistsNestedInput
+  }
+
+  export type WatchlistUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    produkId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WatchlistUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    produkId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BidCreateManyProdukInput = {
     id?: string
     userId: string
     bidAmount: number
     status?: string
+    createdAt?: Date | string
+  }
+
+  export type WatchlistCreateManyProdukInput = {
+    id?: string
+    userId: string
     createdAt?: Date | string
   }
 
@@ -6123,6 +9018,24 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     bidAmount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WatchlistUpdateWithoutProdukInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWatchlistsNestedInput
+  }
+
+  export type WatchlistUncheckedUpdateWithoutProdukInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WatchlistUncheckedUpdateManyWithoutProdukInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

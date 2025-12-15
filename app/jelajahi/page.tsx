@@ -1,10 +1,26 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+// Komponen Banner Status Lelang
+function LelangStatusBanner() {
+  const [status, setStatus] = useState<'buka' | 'tutup' | null>(null);
+  useEffect(() => {
+    fetch('/api/lelang')
+      .then(res => res.json())
+      .then(data => setStatus(data.status))
+      .catch(() => setStatus(null));
+  }, []);
+  if (!status) return null;
+  return (
+    <div className={`w-full text-center py-2 mb-4 font-semibold text-sm rounded-lg shadow-md ${status === 'buka' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+      {status === 'buka' ? 'Lelang Sedang Dibuka! Silakan ajukan tawaran.' : 'Lelang Sedang Ditutup. Tidak dapat mengajukan tawaran.'}
+    </div>
+  );
+}
 import { useSearchParams } from 'next/navigation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Car as CarIcon, Users, Settings, Calendar, Gauge, Search, Filter, TrendingUp, Clock, DollarSign, Sparkles } from 'lucide-react';
+import { Car as CarIcon, Users, Settings, Calendar, Gauge, Search, Filter, TrendingUp, Clock, DollarSign, Sparkles, Heart } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -69,7 +85,12 @@ export function formatKategori(input?: string): string {
 }
 
 
-function ProductCard({ product, onBid }: { product: Product; onBid: (productId: string, bidAmount: number) => void }) {
+function ProductCard({ product, onBid, isLoved, onToggleLove }: {
+  product: Product;
+  onBid: (productId: string, bidAmount: number) => void;
+  isLoved: boolean;
+  onToggleLove: (produkId: string) => void;
+}) {
   const [bidAmount, setBidAmount] = useState(product.harga_awal + 1000000);
   const [submitting, setSubmitting] = useState(false);
   const [showBidForm, setShowBidForm] = useState(false);
@@ -87,24 +108,37 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
   };
 
   return (
-    <div className="group relative bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-500 border border-white/30 hover:border-white/50 hover:scale-[1.02] flex flex-col h-full overflow-hidden cursor-pointer">
+    <div
+      className="group relative bg-white/90 backdrop-blur-xl rounded-2xl p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-500 border border-white/30 hover:border-white/50 hover:scale-[1.02] flex flex-col h-full overflow-hidden cursor-pointer
+      w-full max-w-xs mx-auto sm:max-w-sm md:max-w-none"
+      style={{ minWidth: 0 }}
+    >
       {/* Image section */}
       {product.image_url && (
         <div className="relative mb-3 overflow-hidden rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300">
           <img
             src={product.image_url}
             alt={product.nama_barang}
-            className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-32 sm:h-36 md:h-40 object-cover transition-transform duration-500 group-hover:scale-105 rounded-xl"
           />
+          {/* Badge Lelang kiri atas */}
           <div className="absolute top-2 left-2">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-2 py-0.5 rounded-md text-xs font-bold shadow-sm">
               Lelang
             </div>
           </div>
+          {/* Tombol love kanan atas */}
+          <button
+            aria-label={isLoved ? 'Hapus dari Watchlist' : 'Tambah ke Watchlist'}
+            className={`absolute top-2 right-2 p-1.5 rounded-full bg-white/90 hover:bg-pink-100 border border-pink-200 shadow transition z-10 ${isLoved ? 'text-pink-600' : 'text-gray-400'}`}
+            onClick={e => { e.stopPropagation(); onToggleLove(product.id); }}
+          >
+            <Heart fill={isLoved ? '#ec4899' : 'none'} strokeWidth={2.2} className="w-6 h-6" />
+          </button>
         </div>
       )}
 
-      <div className="space-y-2 flex-grow">
+      <div className="space-y-2 flex-grow min-h-[120px] sm:min-h-[140px] md:min-h-[160px]">
         {/* Title */}
         <h4 className="text-sm font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
           {product.nama_barang}
@@ -140,7 +174,7 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
         {!showBidForm ? (
           <button
             onClick={() => setShowBidForm(true)}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-2 px-3 rounded-lg text-xs transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-2 px-3 rounded-lg text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
           >
             Ajukan Tawaran
           </button>
@@ -151,7 +185,7 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
               placeholder="Tawaran Anda"
               value={bidAmount}
               onChange={(e) => setBidAmount(Number(e.target.value))}
-              className="w-full px-2 py-1.5 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-xs"
+              className="w-full px-2 py-1.5 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm"
               min={product.harga_awal + 1}
             />
 
@@ -159,7 +193,7 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
               <button
                 onClick={handleBid}
                 disabled={submitting}
-                className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-1.5 px-2 rounded-md text-xs transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-1.5 px-2 rounded-md text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {submitting ? (
                   <div className="flex items-center justify-center gap-1">
@@ -173,7 +207,7 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
 
               <button
                 onClick={() => setShowBidForm(false)}
-                className="px-2 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md text-xs transition-colors duration-300"
+                className="px-2 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md text-xs sm:text-sm transition-colors duration-300"
               >
                 Batal
               </button>
@@ -186,6 +220,35 @@ function ProductCard({ product, onBid }: { product: Product; onBid: (productId: 
 }
 
 export default function JelajahiPage() {
+  // Watchlist state
+  const [watchlist, setWatchlist] = useState<string[]>([]);
+
+  // Fetch watchlist produkId[]
+  useEffect(() => {
+    fetch('/api/watchlist')
+      .then(res => res.ok ? res.json() : [])
+      .then((data: Product[]) => setWatchlist(data.map(p => p.id)))
+      .catch(() => setWatchlist([]));
+  }, []);
+
+  // Toggle love
+  const handleToggleLove = async (produkId: string) => {
+    if (watchlist.includes(produkId)) {
+      await fetch('/api/watchlist', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ produkId }),
+      });
+      setWatchlist(watchlist.filter(id => id !== produkId));
+    } else {
+      await fetch('/api/watchlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ produkId }),
+      });
+      setWatchlist([...watchlist, produkId]);
+    }
+  };
   const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -332,7 +395,9 @@ export default function JelajahiPage() {
   return (
     <>
       <Navbar />
-
+      <div className="container mx-auto px-4">
+        <LelangStatusBanner />
+      </div>
       {/* Modern Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -414,6 +479,10 @@ export default function JelajahiPage() {
       </section>
 
       <main className="container mx-auto p-4 -mt-8 relative z-10">
+        {/* Banner status lelang di atas semua konten */}
+        <div className="mb-4">
+          <LelangStatusBanner />
+        </div>
         {/* Stats Section */}
 
         <div className="text-center mb-12">
@@ -451,9 +520,19 @@ export default function JelajahiPage() {
               <p className="text-gray-600">Cek kembali nanti untuk koleksi mobil terbaru</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div
+              className="flex flex-row gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:overflow-x-visible"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {getProductsByCategory('semua-mobil').map((product) => (
-                <ProductCard key={product.id} product={product} onBid={submitBid} />
+                <div key={product.id} className="min-w-[260px] max-w-xs w-full sm:min-w-0 sm:max-w-none">
+                  <ProductCard
+                    product={product}
+                    onBid={submitBid}
+                    isLoved={watchlist.includes(product.id)}
+                    onToggleLove={handleToggleLove}
+                  />
+                </div>
               ))}
             </div>
           )}
@@ -492,9 +571,14 @@ export default function JelajahiPage() {
               <p className="text-gray-600">Cek kembali nanti untuk koleksi mobil terbaru</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div
+              className="flex flex-row gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:overflow-x-visible"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {getProductsByCategory('sedang-ramai').map((product) => (
-                <ProductCard key={product.id} product={product} onBid={submitBid} />
+                <div key={product.id} className="min-w-[260px] max-w-xs w-full sm:min-w-0 sm:max-w-none">
+                  <ProductCard product={product} onBid={submitBid} />
+                </div>
               ))}
             </div>
           )}
@@ -531,9 +615,14 @@ export default function JelajahiPage() {
               <p className="text-gray-600">Cek kembali nanti untuk koleksi mobil terbaru</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div
+              className="flex flex-row gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:overflow-x-visible"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {getProductsByCategory('segera-berakhir').map((product) => (
-                <ProductCard key={product.id} product={product} onBid={submitBid} />
+                <div key={product.id} className="min-w-[260px] max-w-xs w-full sm:min-w-0 sm:max-w-none">
+                  <ProductCard product={product} onBid={submitBid} />
+                </div>
               ))}
             </div>
           )}
@@ -570,9 +659,14 @@ export default function JelajahiPage() {
               <p className="text-gray-600">Cek kembali nanti untuk koleksi mobil terbaru</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div
+              className="flex flex-row gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:overflow-x-visible"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {getProductsByCategory('dibawah-100-juta').map((product) => (
-                <ProductCard key={product.id} product={product} onBid={submitBid} />
+                <div key={product.id} className="min-w-[260px] max-w-xs w-full sm:min-w-0 sm:max-w-none">
+                  <ProductCard product={product} onBid={submitBid} />
+                </div>
               ))}
             </div>
           )}
@@ -609,9 +703,14 @@ export default function JelajahiPage() {
               <p className="text-gray-600">Cek kembali nanti untuk koleksi mobil terbaru</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div
+              className="flex flex-row gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:overflow-x-visible"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {getProductsByCategory('baru-masuk').map((product) => (
-                <ProductCard key={product.id} product={product} onBid={submitBid} />
+                <div key={product.id} className="min-w-[260px] max-w-xs w-full sm:min-w-0 sm:max-w-none">
+                  <ProductCard product={product} onBid={submitBid} />
+                </div>
               ))}
             </div>
           )}

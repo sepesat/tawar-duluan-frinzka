@@ -1,3 +1,16 @@
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  produkId  String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  produk    Produk   @relation(fields: [produkId], references: [id], onDelete: Cascade)
+}
+
+model Setting {
+  key   String @id
+  value String
+}
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated"
@@ -15,6 +28,7 @@ model User {
   role      String   @default("masyarakat")
   createdAt DateTime @default(now())
   bids      Bid[]
+  watchlists Watchlist[]
 }
 
 enum Kategori {
@@ -41,9 +55,9 @@ model Produk {
   kilometer       Int?     // Mileage
 
   kategori    Kategori @default(SEMUA)
-  
   createdAt   DateTime @default(now())
   bids        Bid[]
+  watchlists  Watchlist[]
 }
 
 model Bid {

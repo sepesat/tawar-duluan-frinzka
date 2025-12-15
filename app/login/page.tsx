@@ -42,7 +42,7 @@ export default function LoginPage() {
 
       // jika admin, arahkan ke dashboard admin
       if (data.role === "admin") {
-        router.push("/admin/dashboard");
+        router.push("/admin/laporan");
       } else if (data.role === "petugas") {
         router.push("/petugas/dashboard");
       } else {

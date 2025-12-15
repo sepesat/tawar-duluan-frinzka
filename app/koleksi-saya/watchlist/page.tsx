@@ -3,48 +3,48 @@ import { useEffect, useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
+
+
+
+interface WatchlistCar {
+  id: string;
+  img?: string;
+  name: string;
+  spec: string;
+  price: string;
+  priceLabel: string;
+  status: string;
+  endTime?: number;
+  countdown?: string;
+  button: { label: string; style: string; disabled: boolean };
+  sold: boolean;
+}
 export default function Watchlist() {
-  const [cars, setCars] = useState([
-    {
-      id: 1,
-      img: "/images/products/car6.jpg",
-      name: "Kia Picanto 2018",
-      spec: "Automatic | 80.000 KM",
-      price: "Rp 90.000.000",
-      priceLabel: "Harga turun!",
-      status: "Lelang Aktif",
-      endTime: 1764020400000, // LONG TIMESTAMP
-      countdown: "",
-      button: { label: "Tawar", style: "bg-gradient-to-r from-[#ABD905] to-[#8BC34A] text-[#0138C9] hover:from-[#8BC34A] hover:to-[#ABD905]", disabled: false },
-      sold: false,
-    },
-    {
-      id: 2,
-      img: "/images/products/car7.jpg",
-      name: "Hyundai i20 2017",
-      spec: "Manual | 90.000 KM",
-      price: "Rp 85.000.000",
-      priceLabel: "",
-      status: "Lelang Berakhir",
-      endTime: null,
-      countdown: "",
-      button: { label: "Lihat Hasil", style: "bg-gray-300 text-gray-600 cursor-not-allowed", disabled: true },
-      sold: true,
-    },
-    {
-      id: 3,
-      img: "/images/products/car4.jpg",
-      name: "Mitsubishi Xpander 2022",
-      spec: "Automatic | 15.000 KM",
-      price: "Rp 200.000.000",
-      priceLabel: "Harga tetap",
-      status: "Dijual Cepat",
-      endTime: null,
-      countdown: "",
-      button: { label: "Beli Sekarang", style: "bg-gradient-to-r from-[#0138C9] to-[#0056b3] text-white hover:from-[#0056b3] hover:to-[#0138C9]", disabled: false },
-      sold: false,
-    },
-  ]);
+  const [cars, setCars] = useState<WatchlistCar[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/watchlist')
+      .then(res => res.ok ? res.json() : [])
+      .then((data: any[]) => {
+        const mapped: WatchlistCar[] = data.map((item) => ({
+          id: item.id,
+          img: item.image_url,
+          name: item.nama_barang,
+          spec: [item.merk_mobil, item.tipe_mobil, item.tahun].filter(Boolean).join(' '),
+          price: item.harga_awal ? `Rp ${item.harga_awal.toLocaleString('id-ID')}` : '-',
+          priceLabel: item.kategori || '',
+          status: 'Lelang Berlangsung',
+          endTime: undefined,
+          countdown: '',
+          button: { label: 'Lihat', style: 'bg-blue-600 text-white', disabled: false },
+          sold: false,
+        }));
+        setCars(mapped);
+      })
+      .catch(() => setCars([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   // 🔥 live countdown
   useEffect(() => {
@@ -126,7 +126,6 @@ export default function Watchlist() {
                   <p className="text-sm text-gray-600 font-medium">{car.spec}</p>
                 </div>
               </div>
-
               {/* Harga */}
               <div className="col-span-2 text-left md:text-center mb-4 md:mb-0 border-b md:border-b-0 pb-2 md:pb-0">
                 <p className={`text-xl font-bold ${car.sold ? "text-gray-500 line-through" : "text-red-600"}`}>
@@ -138,7 +137,6 @@ export default function Watchlist() {
                   </span>
                 )}
               </div>
-
               {/* Status / Countdown */}
               <div className="col-span-3 text-left md:text-center mb-4 md:mb-0 border-b md:border-b-0 pb-2 md:pb-0">
                 {!car.endTime ? (
@@ -164,7 +162,6 @@ export default function Watchlist() {
                   </>
                 )}
               </div>
-
               {/* Action */}
               <div className="col-span-3 flex justify-start md:justify-end space-x-3">
                 <button
@@ -181,7 +178,6 @@ export default function Watchlist() {
           ))}
         </div>
       </div>
-
       <Footer />
     </>
   );

@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+
 import {
   BarChart2,
   TrendingUp,
@@ -45,6 +48,89 @@ interface Analytics {
 
 // Komponen utama
 export default function HalamanLaporan() {
+  const handleGeneratePDF = () => {
+  if (!analytics) return;
+
+  const doc = new jsPDF("p", "mm", "a4");
+
+  /* ================= HEADER ================= */
+  doc.setFontSize(16);
+  doc.text("LAPORAN ANALITIK LELANG MOBIL", 14, 15);
+
+  doc.setFontSize(10);
+  doc.setTextColor(100);
+  doc.text(
+    `Tanggal Cetak: ${new Date().toLocaleDateString("id-ID")}`,
+    14,
+    22
+  );
+
+  /* ================= SUMMARY ================= */
+  doc.setTextColor(0);
+  doc.setFontSize(12);
+  doc.text("Ringkasan Statistik", 14, 32);
+
+  autoTable(doc,{
+    startY: 36,
+    head: [["Keterangan", "Nilai"]],
+    body: [
+      ["Total Produk", analytics.totalProduk.toString()],
+      ["Produk Bulan Ini", analytics.produkBulanIni.toString()],
+      ["Total Tawaran", analytics.totalBid.toString()],
+      ["Tawaran Bulan Ini", analytics.bidBulanIni.toString()],
+      [
+        "Nilai Total Lelang",
+        `Rp ${(analytics.totalNilaiAuction / 1_000_000).toFixed(0)}M`,
+      ],
+      [
+        "Rata-rata Tawaran",
+        `Rp ${(analytics.averageBidAmount / 1_000_000).toFixed(1)}M`,
+      ],
+      [
+        "Harga Tertinggi",
+        `Rp ${(analytics.hargaTertinggi / 1_000_000).toFixed(0)}M`,
+      ],
+      [
+        "Harga Terendah",
+        `Rp ${(analytics.hargaTerendah / 1_000_000).toFixed(0)}M`,
+      ],
+    ],
+  });
+
+  /* ================= KATEGORI ================= */
+  const kategoriY = (doc as any).lastAutoTable.finalY + 10;
+  doc.text("Distribusi Kategori", 14, kategoriY);
+
+  autoTable(doc,{
+    startY: kategoriY + 4,
+    head: [["Kategori", "Jumlah Produk"]],
+    body: Object.entries(analytics.kategoriDistribution).map(
+      ([kategori, jumlah]) => [kategori, jumlah.toString()]
+    ),
+  });
+
+  /* ================= TOP PRODUK ================= */
+  const topProdukY = (doc as any).lastAutoTable.finalY + 10;
+  doc.text("Top 5 Produk Berdasarkan Harga", 14, topProdukY);
+
+   autoTable(doc,{
+    startY: topProdukY + 4,
+    head: [["No", "Nama Produk", "Harga", "Kategori", "Tanggal"]],
+    body: analytics.topProducts.map((p, i) => [
+      (i + 1).toString(),
+      p.nama_barang,
+      `Rp ${(p.harga_awal / 1_000_000).toFixed(0)}M`,
+      p.kategori || "Umum",
+      new Date(p.createdAt).toLocaleDateString("id-ID"),
+    ]),
+  });
+
+  /* ================= SAVE ================= */
+  doc.save(
+    `laporan-analitik-${new Date().toISOString().slice(0, 10)}.pdf`
+  );
+};
+
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [produkList, setProdukList] = useState<Produk[]>([]);
@@ -128,15 +214,29 @@ export default function HalamanLaporan() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
       <div className="max-w-7xl mx-auto p-8">
       {/* Header */}
-      <div className="mb-8 pb-6 border-b border-white/10">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 bg-blue-500/20 rounded-lg">
-            <BarChart2 className="w-6 h-6 text-blue-400" />
-          </div>
-          <h1 className="text-3xl font-bold text-white">Dashboard Analitik</h1>
-        </div>
-        <p className="text-gray-400 text-sm ml-11">Monitor performa platform lelang mobil Anda</p>
+      <div className="mb-8 pb-6 border-b border-white/10 flex items-start justify-between">
+  <div>
+    <div className="flex items-center gap-3 mb-2">
+      <div className="p-2.5 bg-blue-500/20 rounded-lg">
+        <BarChart2 className="w-6 h-6 text-blue-400" />
       </div>
+      <h1 className="text-3xl font-bold text-white">
+        Dashboard Analitik
+      </h1>
+    </div>
+    <p className="text-gray-400 text-sm ml-11">
+      Monitor performa platform lelang mobil Anda
+    </p>
+  </div>
+
+  <button
+    onClick={handleGeneratePDF}
+    className="h-fit px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition"
+  >
+    Export PDF
+  </button>
+</div>
+
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
