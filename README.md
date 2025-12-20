@@ -7,7 +7,6 @@
 Berikut adalah tampilan antarmuka dari aplikasi Tawar Duluan.
 
 | Halaman | Preview |
-|Data| |
 | :--- | :--- |
 | **Landing Page** <br> Tampilan utama yang menyambut pengguna dengan fitur unggulan. | ![Landing Page](public/readme/user-db.png) |
 | **Halaman Jelajahi** <br> Katalog mobil dengan fitur pencarian dan filter lengkap. | ![Halaman Jelajahi](public/readme/page-jelajahi.png) |
