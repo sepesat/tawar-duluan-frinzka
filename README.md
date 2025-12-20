@@ -5,7 +5,6 @@
 ## 📸 Galeri Aplikasi
 
 Berikut adalah tampilan antarmuka dari aplikasi Tawar Duluan.
-*(Silakan tambahkan screenshot Anda ke folder `public/images/` dengan nama file yang sesuai)*
 
 | Halaman | Preview |
 |Data| |
